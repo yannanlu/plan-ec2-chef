@@ -40,7 +40,7 @@ In order to run this playbook, the path of the ssh private key file for the key_
 | default_user                 | ec2-user        | default user for ssh           | roles/ec2_launcher/defaults/main.yml |
 
 ## Author
-Yannan Lu <yannan.lu@emory.edu>
+Yannan Lu <yannanlu@yahoo.com>
 
 ## See Also
 * [CentOS EC2 AMI List] (https://wiki.centos.org/Cloud/AWS)
