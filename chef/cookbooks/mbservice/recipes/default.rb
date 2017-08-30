@@ -25,7 +25,7 @@ template File.join(qbroker_dir, 'flow', id, 'Flow.json') do
   mode '0644'
   variables(
     :id => id,
-    :logdir => node['qbroker']['logdir'],
+    :logdir => node['tomcat']['logdir'],
     :cfgdir => "#{qbroker_dir}/flow/#{id}" 
   )
   notifies :restart, "service[tomcat]"
@@ -37,10 +37,10 @@ template File.join(qbroker_dir, 'flow', id, 'pstr_msg.json') do
   group node['qbroker']['group']
   mode '0644'
   variables(
-    :url => "tcp://#{node['activemq']['broker_ip']}:#{node['activemq']['broker_port']}",
+    :url => "tcp://localhost:#{node['activemq']['broker_port']}",
     :context_factory => node['activemq']['context_factory'],
     :qcf => node['activemq']['queue_connection_factory'],
-    :queue => 'MDG_OUT',
+    :queue => 'MSG_OUT',
     :user => node['activemq']['broker_user'],
     :passwd => node['activemq']['broker_passwd']
   )

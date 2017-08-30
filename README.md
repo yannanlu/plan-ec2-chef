@@ -10,34 +10,44 @@ Tested with images of Ubuntu and CentOS only
 
 ## Description
 
-To run the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application:
+To check the plan, cd to the directory of the plan and run the following command:
 ```
-terraform apply
+terraform plan -var pem_file=~/.ssh/ylu.pem
+```
+
+To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application:
+```
+terraform apply -var pem_file=~/.ssh/ylu.pem
 ```
 
 To terminate the launched instances:
 ```
-terraform destroy
+terraform destroy -force
 ```
 
-To list the launched instances:
+To show the state of the launched instances:
 ```
 terraform show
 ```
 
-In order to run this playbook, the path of the ssh private key file for the key_name has to be specified in the command line under the var name of pem_file. It is also assumed that ~/.aws/credentials is set up with the access_key and secret_key. Further more, it is also assuemd that the ssh key pair has been set up on the AWS region. The following default variables will need to be customized to fit your choice:
+To apply the plan to provision an EC2 instance of Centos 7 with the default web application:
+```
+terraform apply -var pem_file=~/.ssh/ylu.pem -var-file=centos.tfvars
+```
+
+In order to run this plan, the path of the ssh private key file for the key_name has to be specified in the command line under the var name of pem_file. It is also assumed that ~/.aws/credentials is set up with the access_key and secret_key. Further more, it is also assuemd that the ssh key pair has been set up on the AWS region. The following default variables will need to be customized to fit your choice:
 
 | Name                         | Value           | Description                    | File                                 |
 | ---                          | ---             | ---                            | ---                                  |
-| key_name                     | ylu             | name of your ssh key on AWS    | roles/ec2_launcher/defaults/main.yml |
-| sg_name                      | ylu_sg          | name of the security group     | roles/ec2_launcher/defaults/main.yml |
-| instance_tag                 | ylu_test        | tag name for your EC2 instance | roles/ec2_launcher/defaults/main.yml |
-| instance_type                | t2.micro        | type of EC2 instance           | roles/ec2_launcher/defaults/main.yml |
-| image_id                     | ami-8b92b4ee    | AMI of Ubuntu 16.04 LTS        | roles/ec2_launcher/defaults/main.yml |
-| aws_region                   | us-east-2       | EC2 region of AWS              | roles/ec2_launcher/defaults/main.yml |
-| vpc_id                       | vpc-e8c95f81    | id of an existing VPC          | roles/ec2_launcher/defaults/main.yml |
-| subnect_id                   | subnet-5e7cd125 | id of a Subnet on the VPC      | roles/ec2_launcher/defaults/main.yml |
-| default_user                 | ec2-user        | default user for ssh           | roles/ec2_launcher/defaults/main.yml |
+| key_name                     | ylu             | name of your ssh key on AWS    | variables.tf, centos.tfvars          |
+| sg_name                      | sg_ylu          | name of the security group     | variables.tf, centos.tfvars          |
+| instance_tag                 | ylu_dev         | tag name for your EC2 instance | variables.tf, centos.tfvars          |
+| instance_type                | t2.micro        | type of EC2 instance           | variables.tf, centos.tfvars          |
+| image_id                     | ami-8b92b4ee    | AMI of Ubuntu 16.04 LTS        | variables.tf, centos.tfvars          |
+| aws_region                   | us-east-2       | EC2 region of AWS              | variables.tf, centos.tfvars          |
+| vpc_id                       | vpc-e8c95f81    | id of an existing VPC          | variables.tf, centos.tfvars          |
+| subnect_id                   | subnet-5e7cd125 | id of a Subnet on the VPC      | variables.tf, centos.tfvars          |
+| default_user                 | ubuntu          | default user for ssh           | variables.tf, centos.tfvars          |
 
 ## Author
 Yannan Lu <yannanlu@yahoo.com>

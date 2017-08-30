@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-2"
+  region = "${var.aws_region}"
 }
 
 data "template_file" "my_userdata" {
@@ -7,31 +7,31 @@ data "template_file" "my_userdata" {
 }
 
 resource "aws_instance" "example" {
-  ami = "ami-8b92b4ee"
-  instance_type = "t2.micro"
-  subnet_id = "subnet-5e7cd125"
+  ami = "${var.image_id}"
+  instance_type = "${var.instance_type}"
+  subnet_id = "${var.subnet_id}"
   vpc_security_group_ids = [ "${aws_security_group.example.id}" ] 
-  key_name = "ylu"
+  key_name = "${var.key_name}"
   user_data = "${data.template_file.my_userdata.rendered}"
   tags = {
-    Name = "ylu_dev"
+    Name = "${var.instance_tag}"
   }
 
   provisioner "remote-exec" {
     script = "scripts/wait_for_chef.sh"
     connection {
       type = "ssh"
-      user = "ubuntu"
-      private_key = "${file("~/.ssh/ylu.pem")}"
+      user = "${var.default_user}"
+      private_key = "${file("${var.pem_file}")}"
       timeout = "120s"
     }
   }
 }
 
 resource "aws_security_group" "example" {
-  name = "sg_ylu"
+  name = "${var.sg_name}"
   description = "Test security group."
-  vpc_id = "vpc-e8c95f81"
+  vpc_id = "${var.vpc_id}"
 
   ingress {
     from_port   = 22 
@@ -62,7 +62,7 @@ resource "aws_security_group" "example" {
   }
 
   tags {
-    Name = "ssh_only"
+    Name = "tcp_only"
   }
 }
 
@@ -89,11 +89,11 @@ resource "null_resource" "chef" {
 
   provisioner "file" {
     source = "chef"
-    destination = "/home/ubuntu"
+    destination = "${join("/", list("/home", "${var.default_user}"))}"
     connection {
       host = "${aws_instance.example.public_dns}"
-      user = "ubuntu"
-      private_key = "${file("~/.ssh/ylu.pem")}"
+      user = "${var.default_user}"
+      private_key = "${file("${var.pem_file}")}"
       timeout = "60s"
     }
   }
@@ -105,8 +105,8 @@ resource "null_resource" "chef" {
     connection {
       type = "ssh"
       host = "${aws_instance.example.public_dns}"
-      user = "ubuntu"
-      private_key = "${file("~/.ssh/ylu.pem")}"
+      user = "${var.default_user}"
+      private_key = "${file("${var.pem_file}")}"
       timeout = "120s"
     }
   }

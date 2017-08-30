@@ -70,7 +70,7 @@ end
 
 service "activemq" do
   supports :status => true, :restart => true
-  action [ :enable, :start ]
+  action [ :enable, :nothing ]
 end
 
 include_recipe "activemq::monit"
