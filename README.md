@@ -22,7 +22,7 @@ terraform apply -var pem_file=~/.ssh/ylu.pem
 
 To terminate the launched instances:
 ```
-terraform destroy -force
+terraform destroy -force -var pem_file=~/.ssh/ylu.pem
 ```
 
 To show the state of the launched instances:

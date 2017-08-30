@@ -33,3 +33,7 @@ variable "key_name" {
 variable "default_user" {
   default = "ubuntu"
 }
+
+variable "pem_file" {
+  type = "string"
+}
