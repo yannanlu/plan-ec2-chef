@@ -13,6 +13,10 @@ resource "aws_instance" "example" {
   vpc_security_group_ids = [ "${aws_security_group.example.id}" ] 
   key_name = "${var.key_name}"
   user_data = "${data.template_file.my_userdata.rendered}"
+  root_block_device {
+    volume_size = 8
+    delete_on_termination = true
+  }
   tags = {
     Name = "${var.instance_tag}"
   }
@@ -23,7 +27,21 @@ resource "aws_instance" "example" {
       type = "ssh"
       user = "${var.default_user}"
       private_key = "${file("${var.pem_file}")}"
-      timeout = "120s"
+      timeout = "360s"
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mkdir /var/cache/chef",
+      "sudo chown ${var.default_user} /var/cache/chef",
+      "sudo chmod 0755 /var/cache/chef"
+    ]
+    connection {
+      type = "ssh"
+      user = "${var.default_user}"
+      private_key = "${file("${var.pem_file}")}"
+      timeout = "60s"
     }
   }
 }
@@ -89,7 +107,7 @@ resource "null_resource" "chef" {
 
   provisioner "file" {
     source = "chef"
-    destination = "${join("/", list("/home", "${var.default_user}"))}"
+    destination = "/var/cache"
     connection {
       host = "${aws_instance.example.public_dns}"
       user = "${var.default_user}"
@@ -100,7 +118,7 @@ resource "null_resource" "chef" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo /opt/chef/bin/chef-solo -c ~/chef/solo.rb"
+      "sudo /opt/chef/bin/chef-solo -c /var/cache/chef/solo.rb"
     ]
     connection {
       type = "ssh"
