@@ -1,6 +1,6 @@
 # plan-ec2-chef
 
-This is a Terraform plan to provision an EC2 instance with Chef-solo and the cookbooks loaded. Then it runs Chef-solo with the cookbooks on the EC2 instance. All the cookbooks are idempotent which means it is safe to run them multiple times. Currenly, it supports Ubuntu and CentOS only. The default web application of mbservice has been fully tested with Nginx and Apache. Within the web application, cookbooks for Nginx, Apache2, Tomcat7 and ActiveMQ are used.
+This is a Terraform plan to provision an EC2 instance with Chef-solo and the cookbooks loaded. Then it runs Chef-solo with the cookbooks on the EC2 instance. All the cookbooks are idempotent which means it is safe to run them multiple times. Currenly, it supports Ubuntu and CentOS only. The web applications of idservice and mbservice have been fully tested with Nginx and Apache. Within the web applications, cookbooks for Nginx, Apache2, Tomcat7, ActiveMQ and Postgresql are used.
 
 This Terraform plan treats the EC2 instance immutable on most of the EC2 properties, such as AMI, Type, VPC, Networks, Volume, etc. It means if any of them needs to be changed, a new instance has to be created with the old instance destroyed. But for other server configurations, such as packages, applications, etc, they will be treated as mutable.
 
@@ -38,6 +38,11 @@ terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=apache.json
 To apply the plan to provision an EC2 instance of Centos 7 with the default web application and the web frontend of Nginx:
 ```
 terraform apply -var pem_file=~/.ssh/ylu.pem -var-file=centos.tfvars
+```
+
+To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the web application of mbservice and the web frontend of Nginx:
+```
+terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=mbservice.json
 ```
 
 In order to run this plan, the path of the ssh private key file for the key_name has to be specified in the command line under the var name of pem_file. It is also assumed that ~/.aws/credentials is set up with the access_key and secret_key. Further more, it is also assuemd that the ssh key pair has been set up on the AWS region. The following default variables will need to be customized to fit your choice:

@@ -1,6 +1,6 @@
 {
   "run_list": [
     "recipe[common::default]",
-    "recipe[mbservice::apache2]"
+    "recipe[idservice::apache2]"
   ]
 }
