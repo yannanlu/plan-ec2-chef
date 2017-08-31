@@ -1,7 +1,8 @@
 name              "nginx"
 maintainer        "Yannan Lu"
-maintainer_email  "yannan.lu@yahoo.com"
+maintainer_email  "yannanlu@yahoo.com"
 description       "Installs and configures nginx"
+long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           "0.1.0"
 
 %w{ ubuntu centos }.each do |os|

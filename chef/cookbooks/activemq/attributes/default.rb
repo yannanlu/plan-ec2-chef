@@ -1,6 +1,7 @@
 
 default['activemq']['user'] = 'activemq'
 default['activemq']['group'] = 'activemq'
+default['activemq']['pidfile'] = '/opt/activemq/data/activemq.pid'
 default['activemq']['pkg_name'] = 'apache-activemq'
 default['activemq']['version'] = '5.14.3'
 default['activemq']['repo_url'] = 'https://archive.apache.org/dist/activemq'

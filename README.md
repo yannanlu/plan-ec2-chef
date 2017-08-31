@@ -30,6 +30,11 @@ To show the state of the launched instances:
 terraform show
 ```
 
+To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application and the web frontend of apache2:
+```
+terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=apache.json
+```
+
 To apply the plan to provision an EC2 instance of Centos 7 with the default web application:
 ```
 terraform apply -var pem_file=~/.ssh/ylu.pem -var-file=centos.tfvars
@@ -48,10 +53,13 @@ In order to run this plan, the path of the ssh private key file for the key_name
 | vpc_id                       | vpc-e8c95f81    | id of an existing VPC          | variables.tf, centos.tfvars          |
 | subnect_id                   | subnet-5e7cd125 | id of a Subnet on the VPC      | variables.tf, centos.tfvars          |
 | default_user                 | ubuntu          | default user for ssh           | variables.tf, centos.tfvars          |
+| json_file                    | node.json       | json file for chef-solo        | variables.tf                         |
 
 ## Author
 Yannan Lu <yannanlu@yahoo.com>
 
 ## See Also
+* [Terraform Docs] (https://www.terraform.io/docs/index.html)
+* [Chef Docs] (https://docs.chef.io)
 * [CentOS EC2 AMI List] (https://wiki.centos.org/Cloud/AWS)
 * [Ubuntu EC2 AMI Finder] (https://cloud-images.ubuntu.com/locator/ec2/)

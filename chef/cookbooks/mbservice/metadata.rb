@@ -1,6 +1,6 @@
 name              "mbservice"
 maintainer        "Yannan Lu"
-maintainer_email  "yannan.lu@yahoo.com"
+maintainer_email  "yannanlu@yahoo.com"
 license           "All rights reserved"
 description       "Installs/Configures a web service"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
@@ -16,3 +16,4 @@ depends           "qbroker"
 depends           "tomcat"
 depends           "activemq"
 depends           "nginx"
+depends           "apache2"

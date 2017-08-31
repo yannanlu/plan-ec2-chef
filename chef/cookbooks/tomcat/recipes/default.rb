@@ -1,7 +1,5 @@
 include_recipe "java::default"
 
-tomcat_dir = node['tomcat']['dir']
-
 package node['tomcat']['pkg_name'] do
   action :install
 end

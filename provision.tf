@@ -27,7 +27,7 @@ resource "aws_instance" "example" {
       type = "ssh"
       user = "${var.default_user}"
       private_key = "${file("${var.pem_file}")}"
-      timeout = "360s"
+      timeout = "60s"
     }
   }
 
@@ -118,14 +118,14 @@ resource "null_resource" "chef" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo /opt/chef/bin/chef-solo -c /var/cache/chef/solo.rb"
+      "sudo /opt/chef/bin/chef-solo -c /var/cache/chef/solo.rb -j /var/cache/chef/${var.json_file}"
     ]
     connection {
       type = "ssh"
       host = "${aws_instance.example.public_dns}"
       user = "${var.default_user}"
       private_key = "${file("${var.pem_file}")}"
-      timeout = "120s"
+      timeout = "60s"
     }
   }
 

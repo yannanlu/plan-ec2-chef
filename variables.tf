@@ -34,6 +34,10 @@ variable "default_user" {
   default = "ubuntu"
 }
 
+variable "json_file" {
+  default = "node.json"
+}
+
 variable "pem_file" {
   type = "string"
 }
