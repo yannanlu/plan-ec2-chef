@@ -1,8 +1,8 @@
-name              "idservice"
+name              "mysql"
 maintainer        "Yannan Lu"
 maintainer_email  "yannanlu@yahoo.com"
 license           "All rights reserved"
-description       "Installs/Configures a web service"
+description       "Installs/Configures mysql-server"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           "0.1.0"
 
@@ -11,10 +11,3 @@ version           "0.1.0"
 end
  
 depends           "monit"
-depends           "java"
-depends           "qbroker"
-depends           "tomcat"
-depends           "postgresql"
-depends           "mysql"
-depends           "nginx"
-depends           "apache2"

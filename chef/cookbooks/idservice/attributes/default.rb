@@ -1,7 +1,7 @@
 default['idservice']['db_type'] = 'postgresql'
 default['idservice']['db_name'] = 'eventdb'
 default['idservice']['db_user'] = 'eventdba'
-default['idservice']['db_passwd'] = 'sercret'
+default['idservice']['db_passwd'] = 'secret'
 default['idservice']['db_sql_file'] = 'eventid.sql'
 
 default['idservice']['jsp_files'] = [
