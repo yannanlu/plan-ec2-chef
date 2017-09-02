@@ -5,6 +5,7 @@ root_passwd = node[cookbook_name]['root_passwd']
 db_name = node[cookbook_name]['db_name']
 db_user = node[cookbook_name]['db_user']
 db_passwd = node[cookbook_name]['db_passwd']
+db_passwd_hash = node[cookbook_name]['db_passwd_hash']
 
 template File.join(tmp, 'create_db.sql') do
   source 'create_db.sql.erb'
@@ -14,7 +15,8 @@ template File.join(tmp, 'create_db.sql') do
   variables(
     :db_name => db_name,
     :db_user => db_user,
-    :db_passwd => db_passwd
+    :db_passwd => db_passwd,
+    :db_passwd_hash => db_passwd_hash
   )
   notifies :run, "execute[create_db]", :immediately
 end

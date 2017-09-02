@@ -4,16 +4,22 @@ conf_file = File.join(cfg_dir, 'pg_hba.conf')
 
 case node['platform']
 when "debian","ubuntu"
-  %w{postgresql python-psycopg2}.each do |pkg|
-    package pkg do
-      action :install
-    end
+  apt_package node[cookbook_name]['pkg_name'] do
+    version node[cookbook_name]['pkg_version']
+    action :install
+  end
+
+  apt_package 'python-psycopg2' do
+    action :install
   end
 when "redhat","centos"
-  %w{postgresql-server python-psycopg2}.each do |pkg|
-    package pkg do
-      action :install
-    end
+  yum_package node[cookbook_name]['pkg_name'] do
+    version node[cookbook_name]['pkg_version']
+    action :install
+  end
+
+  yum_package 'python-psycopg2' do
+    action :install
   end
 
   execute 'initdb' do

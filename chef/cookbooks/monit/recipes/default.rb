@@ -1,8 +1,17 @@
-package "monit" do
-  action :install
+case node['platform']
+when "debian","ubuntu"
+  apt_package node[cookbook_name]['pkg_name'] do
+    version node[cookbook_name]['pkg_version']
+    action :install
+  end
+when "redhat","centos"
+  yum_package node[cookbook_name]['pkg_name'] do
+    version node[cookbook_name]['pkg_version']
+    action :install
+  end
 end
 
-cookbook_file File.join(node['monit']['includedir'], "monit.pem") do
+cookbook_file File.join(node[cookbook_name]['includedir'], "monit.pem") do
   owner "root"
   group "root"
   mode "0600"
@@ -10,7 +19,7 @@ cookbook_file File.join(node['monit']['includedir'], "monit.pem") do
   notifies :restart, "service[monit]"
 end
 
-template File.join(node['monit']['dir'], "monitrc") do
+template File.join(node[cookbook_name]['dir'], "monitrc") do
   owner "root"
   group "root"
   mode 0600
@@ -18,7 +27,7 @@ template File.join(node['monit']['dir'], "monitrc") do
   notifies :restart, "service[monit]"
 end
 
-service "monit" do
+service cookbook_name do
   supports :status => true, :restart => true, :reload => true
   action [:enable, :start]
 end

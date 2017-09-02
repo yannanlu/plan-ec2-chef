@@ -1,17 +1,24 @@
-pkg_name = node['apache2']['pkg_name']
-
-package pkg_name do
-  action :install
-end
+pkg_name = node[cookbook_name]['pkg_name']
 
 case node['platform']
+when "debian","ubuntu"
+  apt_package pkg_name do
+    version node[cookbook_name]['pkg_version']
+    action :install
+  end
 when "redhat","centos"
-  package 'mod_ssl' do
+  yum_package pkg_name do
+    version node[cookbook_name]['pkg_version']
+    action :install
+  end
+
+  yum_package 'mod_ssl' do
+    version node[cookbook_name]['pkg_version']
     action :install
   end
 end
 
-service "apache2" do
+service cookbook_name do
   service_name pkg_name
   supports :status => true, :restart => true
   action [:enable, :nothing]
