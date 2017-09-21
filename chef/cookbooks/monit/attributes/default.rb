@@ -26,7 +26,7 @@ else
 end
 
 default['monit']['allow_list'] = [
-  '170.140.201.0/24',
+  '170.140.0.0/16',
   '75.131.197.0/24',
   'localhost'
 ]
