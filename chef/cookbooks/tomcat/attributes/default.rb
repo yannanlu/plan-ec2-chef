@@ -1,6 +1,7 @@
 
 default['tomcat']['port'] = '8080'
 default['tomcat']['bind_ip'] = '127.0.0.1'
+default['tomcat']['webapp_context'] = nil
 
 case node['platform']
 when "debian","ubuntu"

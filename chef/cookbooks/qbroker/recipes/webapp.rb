@@ -1,9 +1,13 @@
+webapp_context = node['qbroker']['webapp_context']
+if webapp_context != nil
+  node.override['tomcat']['webapp_context'] = webapp_context
+end
+
 include_recipe "tomcat"
 include_recipe "qbroker"
 
 qbroker_dir = File.join(node['qbroker']['basedir'], cookbook_name)
 id = node['qbroker']['service_id']
-webapp_context = node['qbroker']['webapp_context']
 jsp_files = node['qbroker']['jsp_files']
 jar_files = node['qbroker']['jar_files']
 json_files = node['qbroker']['json_files']

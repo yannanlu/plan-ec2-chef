@@ -55,21 +55,21 @@ resource "aws_security_group" "example" {
     from_port   = 22 
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["170.140.201.0/24", "75.131.197.0/24"]
+    cidr_blocks = ["170.140.0.0/16", "75.131.197.0/24"]
   }
 
   ingress {
     from_port   = 2812
     to_port     = 2812
     protocol    = "tcp"
-    cidr_blocks = ["170.140.201.0/24", "75.131.197.0/24"]
+    cidr_blocks = ["170.140.0.0/16", "75.131.197.0/24"]
   }
 
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["170.140.201.0/24", "75.131.197.0/24"]
+    cidr_blocks = ["170.140.0.0/16", "75.131.197.0/24"]
   }
 
   egress {

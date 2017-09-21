@@ -11,10 +11,7 @@ when "redhat","centos"
     version node[cookbook_name]['pkg_version']
     action :install
   end
-end
 
-case node['platform']
-when "redhat","centos"
   execute "seboolean" do
     command "setsebool httpd_can_network_connect on -P"
     user 'root'
