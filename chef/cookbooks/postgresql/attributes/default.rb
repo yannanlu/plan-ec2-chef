@@ -18,7 +18,7 @@ when "debian","ubuntu"
   default['postgresql']['cfgdir'] = '/etc/postgresql/9.5/main'
 when "redhat","centos"
   default['postgresql']['pkg_name'] = 'postgresql-server'
-  default['postgresql']['pkg_version'] = '9.2.18-1.el7'
+  default['postgresql']['pkg_version'] = '9.2.23-1.el7_4'
   default['postgresql']['homedir'] = '/var/lib/pgsql'
   default['postgresql']['pidfile'] = '/var/run/postgresql/postgresql.pid'
   default['postgresql']['datadir'] = '/var/lib/pgsql/data'

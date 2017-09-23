@@ -14,7 +14,7 @@ when "debian","ubuntu"
   default['tomcat']['group'] = 'tomcat7'
 when "redhat","centos"
   default['tomcat']['pkg_name'] = 'tomcat'
-  default['tomcat']['pkg_version'] = '7.0.69-12.el7_3'
+  default['tomcat']['pkg_version'] = '7.0.76-2.el7'
   default['tomcat']['dir'] = '/etc/tomcat'
   default['tomcat']['basedir'] = '/usr/share/tomcat'
   default['tomcat']['logdir'] = '/var/log/tomcat'

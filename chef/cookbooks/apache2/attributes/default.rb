@@ -1,7 +1,7 @@
 case node['platform']
 when "debian","ubuntu"
   default['apache2']['pkg_name']  = 'apache2'
-  default['apache2']['pkg_version']  = '2.4.18-2ubuntu3.4'
+  default['apache2']['pkg_version']  = '2.4.18-2ubuntu3.5'
   default['apache2']['dir'] = '/etc/apache2'
   default['apache2']['modsdir'] = '/usr/lib/apache2/modules'
   default['apache2']['pidfile'] = '/var/run/apache2/apache2.pid'
@@ -10,7 +10,7 @@ when "debian","ubuntu"
   default['apache2']['group'] = 'www-data'
 when "redhat","centos"
   default['apache2']['pkg_name']  = 'httpd'
-  default['apache2']['pkg_version']  = '2.4.6-45.el7.centos.4'
+  default['apache2']['pkg_version']  = '2.4.6-67.el7.centos.2'
   default['apache2']['dir'] = '/etc/httpd'
   default['apache2']['modsdir'] = '/etc/httpd/modules'
   default['apache2']['pidfile'] = '/var/run/httpd/httpd.pid'
