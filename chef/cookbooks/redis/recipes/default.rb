@@ -1,7 +1,6 @@
 redis_dir = node[cookbook_name]['dir']
 
 package node[cookbook_name]['pkg_name'] do
-  version node[cookbook_name]['pkg_version']
   action :install
 end
 

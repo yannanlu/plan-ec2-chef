@@ -20,6 +20,10 @@ resource "aws_instance" "example" {
   tags = {
     Name = "${var.instance_tag}"
   }
+  timeouts = {
+    create = "600s"
+    delete = "360s"
+  }
 
   provisioner "remote-exec" {
     script = "scripts/wait_for_chef.sh"
@@ -27,7 +31,7 @@ resource "aws_instance" "example" {
       type = "ssh"
       user = "${var.default_user}"
       private_key = "${file("${var.pem_file}")}"
-      timeout = "60s"
+      timeout = "150s"
     }
   }
 
@@ -41,7 +45,7 @@ resource "aws_instance" "example" {
       type = "ssh"
       user = "${var.default_user}"
       private_key = "${file("${var.pem_file}")}"
-      timeout = "60s"
+      timeout = "150s"
     }
   }
 }

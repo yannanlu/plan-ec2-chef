@@ -1,7 +1,6 @@
 nginx_dir = node['nginx']['dir']
 
 package node[cookbook_name]['pkg_name'] do
-  version node[cookbook_name]['pkg_version']
   action :install
 end
 

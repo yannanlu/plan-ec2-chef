@@ -4,7 +4,6 @@ root_passwd = node[cookbook_name]['root_passwd']
 case node['platform']
 when "debian","ubuntu"
   apt_package node[cookbook_name]['pkg_name'] do
-    version node[cookbook_name]['pkg_version']
     action :install
   end
 
@@ -40,7 +39,6 @@ when "redhat","centos"
   end
 
   yum_package node[cookbook_name]['pkg_name'] do
-    version node[cookbook_name]['pkg_version']
     action :install
   end
 
