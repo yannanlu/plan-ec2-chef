@@ -6,7 +6,7 @@ This Terraform plan treats the EC2 instance immutable on most of the EC2 propert
 
 ## Status
 
-Tested with images of Ubuntu and CentOS only
+Tested with Terraform v0.9.8 and images of Ubuntu and CentOS only
 
 ## Description
 
