@@ -35,10 +35,7 @@ template File.join(qbroker_dir, 'flow', id, 'node_collect.json') do
   group node['qbroker']['group']
   mode '0644'
   variables(
-    :db_type => node[cookbook_name]['db_type'],
-    :db_name => node[cookbook_name]['db_name'],
-    :db_user => node[cookbook_name]['db_user'],
-    :db_passwd => node[cookbook_name]['db_passwd']
+    :db_type => node[cookbook_name]['db_type']
   )
   notifies :restart, "service[tomcat]"
 end
