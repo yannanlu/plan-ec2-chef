@@ -1,4 +1,3 @@
-include_recipe "#{cookbook_name}"
 include_recipe "nginx"
 
 nginx_dir = node['nginx']['dir']

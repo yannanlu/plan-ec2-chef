@@ -9,9 +9,9 @@ OWNER=<%= @user %>
 PS=/bin/ps
 
 CLASSPATH=\
-<% @jarfiles.each do |f| -%>
+<% @jarfiles.each do |f| %>
 $QBDIR/lib/<%= f %>:\
-<% end -%>
+<% end %>
 $QBDIR/lib/:$CLASSPATH
 export CLASSPATH
 

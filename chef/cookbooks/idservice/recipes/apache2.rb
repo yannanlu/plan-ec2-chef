@@ -1,4 +1,3 @@
-include_recipe "#{cookbook_name}"
 include_recipe "apache2"
 
 apache2_dir = node['apache2']['dir']

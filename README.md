@@ -15,7 +15,7 @@ To check the plan, cd to the directory of the plan and run the following command
 terraform plan -var pem_file=~/.ssh/ylu.pem
 ```
 
-To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application and the web frontend of Nginx:
+To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application plus the database of Postgresql and the web frontend of Nginx:
 ```
 terraform apply -var pem_file=~/.ssh/ylu.pem
 ```
@@ -30,12 +30,12 @@ To show the state of the launched instances:
 terraform show
 ```
 
-To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application and the web frontend of Apache:
+To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application plus the database of MySql and the web frontend of Apache:
 ```
-terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=apache.json
+terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=mysql.json
 ```
 
-To apply the plan to provision an EC2 instance of Centos 7 with the default web application and the web frontend of Nginx:
+To apply the plan to provision an EC2 instance of Centos 7 with the default web application plus the database of Postgresql and the web frontend of Nginx:
 ```
 terraform apply -var pem_file=~/.ssh/ylu.pem -var-file=centos.tfvars
 ```

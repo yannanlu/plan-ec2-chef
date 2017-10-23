@@ -13,9 +13,9 @@ set httpd
     ssl enable
     pemfile <%= node['monit']['includedir'] %>/<%= node['monit']['pemfile'] %>
     allow <%= node['monit']['user'] %>:<%= node['monit']['passwd'] %>
-<% node['monit']['allow_list'].each do |item| -%>
+<% node['monit']['allow_list'].each do |item| %>
     allow <%= item %>
-<% end -%>
+<% end %>
 
 check system $HOST
     if loadavg (1min) > 4 then alert

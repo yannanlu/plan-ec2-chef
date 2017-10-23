@@ -18,7 +18,6 @@ default['idservice']['json_files'] = [
   'node_format.json',
   'node_cache.json',
   'node_mapreduce.json',
-  'node_collect.json',
   'node_jpath.json',
   'node_data_format.json',
   'pstr_null.json',
@@ -39,6 +38,7 @@ default['idservice']['jar_files'] = [
   'log4j-1.2.12.jar',
   'mail.jar',
   'postgresql-9.1-903.jdbc4.jar',
+  'mysql-connector-java-5.0.8-bin.jar',
   'qbroker-1.2.0.jar',
   'xercesImpl.jar'
 ]
