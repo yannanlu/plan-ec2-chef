@@ -30,7 +30,7 @@ To show the state of the launched instances:
 terraform show
 ```
 
-To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application plus the database of MySql and the web frontend of Apache:
+To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application plus the database of MySQL and the web frontend of Apache:
 ```
 terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=mysql.json
 ```
