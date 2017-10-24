@@ -28,22 +28,3 @@ execute 'create_db' do
   cwd '/tmp'
   action :nothing
 end
-
-if node[cookbook_name]['wrapper_cookbook'] != nil
-  cookbook_file File.join(tmp, node[cookbook_name]['db_sql_file']) do
-    cookbook node[cookbook_name]['wrapper_cookbook']
-    source node[cookbook_name]['db_sql_file']
-    owner 'root'
-    group 'root'
-    mode '0644'
-    notifies :run, "execute[create_tables]", :immediately
-  end
-end
-
-execute 'create_tables' do
-  command "/usr/bin/mysql -u #{db_user} -p#{db_passwd} #{db_name} < #{File.join(tmp, node[cookbook_name]['db_sql_file'])}"
-  user 'root'
-  group 'root'
-  cwd '/tmp'
-  action :nothing
-end

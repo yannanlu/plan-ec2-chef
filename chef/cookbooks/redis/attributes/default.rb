@@ -6,9 +6,9 @@ case node['platform']
 when "debian","ubuntu"
   default['redis']['pkg_name'] = 'redis-server'
   default['redis']['pkg_version'] = '2:3.0.6-1'
-  default['redis']['dir'] = '/var/lib/redis'
+  default['redis']['dir'] = '/etc/redis'
   default['redis']['logfile'] = '/var/log/redis/redis-server.log'
-  default['redis']['pidfile'] = '/var/run/redis-server.pid'
+  default['redis']['pidfile'] = '/var/run/redis/redis-server.pid'
 when "redhat","centos"
   default['redis']['pkg_name'] = 'redis'
   default['redis']['pkg_version'] = '3.2.10-2.el7'

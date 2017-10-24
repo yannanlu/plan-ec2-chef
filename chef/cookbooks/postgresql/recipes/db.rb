@@ -20,22 +20,3 @@ execute 'create_db' do
   cwd node[cookbook_name]['homedir']
   action :nothing
 end
-
-if node[cookbook_name]['wrapper_cookbook'] != nil
-  cookbook_file File.join(node[cookbook_name]['homedir'], node[cookbook_name]['db_sql_file']) do
-    cookbook node[cookbook_name]['wrapper_cookbook']
-    source node[cookbook_name]['db_sql_file']
-    owner node[cookbook_name]['user']
-    group node[cookbook_name]['group']
-    mode '0644'
-    notifies :run, "execute[create_tables]", :immediately
-  end
-end
-
-execute 'create_tables' do
-  command "/usr/bin/psql eventdb -f #{File.join(node[cookbook_name]['homedir'], node[cookbook_name]['db_sql_file'])}"
-  user node[cookbook_name]['user']
-  group node[cookbook_name]['group']
-  cwd node[cookbook_name]['homedir']
-  action :nothing
-end

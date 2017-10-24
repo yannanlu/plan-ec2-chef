@@ -9,8 +9,6 @@ default['mysql']['db_name'] = 'testdb'
 default['mysql']['db_user'] = 'guest'
 default['mysql']['db_passwd'] = 'secret'
 default['mysql']['db_passwd_hash'] = nil
-default['mysql']['db_sql_file'] = 'create_db.sql'
-default['mysql']['wrapper_cookbook'] = nil
 
 case node['platform']
 when "debian","ubuntu"

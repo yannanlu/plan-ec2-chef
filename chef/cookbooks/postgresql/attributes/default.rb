@@ -5,8 +5,6 @@ default['postgresql']['dir'] = '/etc/postgresql'
 default['postgresql']['db_name'] = 'testdb'
 default['postgresql']['db_user'] = 'guest'
 default['postgresql']['db_passwd'] = 'secret'
-default['postgresql']['db_sql_file'] = 'create_db.sql'
-default['postgresql']['wrapper_cookbook'] = nil
 
 case node['platform']
 when "debian","ubuntu"
