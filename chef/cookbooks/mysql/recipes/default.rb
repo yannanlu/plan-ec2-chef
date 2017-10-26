@@ -46,25 +46,35 @@ when "redhat","centos"
     action :install
   end
 
+  execute "set_se_permissive" do
+    command "/usr/sbin/setenforce 0"
+    user 'root'
+    group 'root'
+    only_if "/usr/sbin/getenforce | /usr/bin/grep Enforcing"
+    not_if { node[cookbook_name]['se_mode'] != 'permissive' }
+  end
+
   service cookbook_name do
     service_name node[cookbook_name]['service_name']
     supports :status => true, :restart => true
     action [ :enable, :start ]
+    notifies :run, "execute[mysql_pause]", :immediately
   end
 
-  execute "pause" do
+  execute "mysql_pause" do
     command "sleep 10"
+    action :nothing
   end
 
   ruby_block "grep_tmp_passwd" do
     action :create
     block do
-        Chef::Resource::RubyBlock.send(:include, Chef::Mixin::ShellOut)      
-        command = "grep 'temporary password' #{node[cookbook_name]['logfile']}"
-        command_out = shell_out(command)
-        s = "#{command_out.stdout}"
-        node.normal['mysql_tmp_passwd'] = s.split(' ')[-1]
-        not_if "echo exit | /usr/bin/mysql -u root -p'#{root_passwd}'"
+      Chef::Resource::RubyBlock.send(:include, Chef::Mixin::ShellOut)      
+      command = "/usr/bin/grep 'temporary password' #{node[cookbook_name]['logfile']}"
+      command_out = shell_out(command)
+      s = "#{command_out.stdout}"
+      node.normal['mysql_tmp_passwd'] = s.split(' ')[-1]
+      not_if "echo exit | /usr/bin/mysql -u root -p'#{root_passwd}'"
     end
   end
 

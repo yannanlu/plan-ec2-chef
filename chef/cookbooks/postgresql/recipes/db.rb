@@ -10,10 +10,10 @@ template File.join(node[cookbook_name]['homedir'], 'create_db.sql') do
     :db_user => node[cookbook_name]['db_user'],
     :db_passwd => node[cookbook_name]['db_passwd'] 
   )
-  notifies :run, "execute[create_db]", :immediately
+  notifies :run, "execute[postgresql_create_db]", :immediately
 end
 
-execute 'create_db' do
+execute 'postgresql_create_db' do
   command "/usr/bin/psql -f #{File.join(node[cookbook_name]['homedir'], 'create_db.sql')}"
   user node[cookbook_name]['user']
   group node[cookbook_name]['group']

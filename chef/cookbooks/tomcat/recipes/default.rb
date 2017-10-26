@@ -14,7 +14,7 @@ when "redhat","centos"
     command "setsebool httpd_can_network_connect on -P"
     user 'root'
     group 'root'
-    only_if "getsebool httpd_can_network_connect | grep off"
+    only_if "/usr/sbin/getsebool httpd_can_network_connect | /usr/bin/grep off"
   end
 end
 

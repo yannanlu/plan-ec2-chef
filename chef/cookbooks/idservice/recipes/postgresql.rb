@@ -12,10 +12,10 @@ cookbook_file File.join(node[db_type]['homedir'], db_sql_file) do
   owner node[db_type]['user']
   group node[db_type]['group']
   mode '0644'
-  notifies :run, "execute[create_tables]", :immediately
+  notifies :run, "execute[postgresql_create_tables]", :immediately
 end
 
-execute 'create_tables' do
+execute 'postgresql_create_tables' do
   command "/usr/bin/psql #{node[db_type]['db_name']} -f #{File.join(node[db_type]['homedir'], db_sql_file)}"
   user node[db_type]['user']
   group node[db_type]['group']

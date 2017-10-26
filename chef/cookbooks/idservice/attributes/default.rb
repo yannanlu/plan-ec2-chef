@@ -4,9 +4,6 @@ default['idservice']['db_user'] = 'eventdba'
 default['idservice']['db_passwd'] = 'secret'
 default['idservice']['db_sql_file'] = 'eventid.sql'
 
-default['idservice']['postgresql']['db_passwd_hash'] = nil 
-default['idservice']['mysql']['db_passwd_hash'] = '*14e65567abdb5135d0cfd9a70b3032c179a49ee7'
-
 default['idservice']['jsp_files'] = [
   'date.jsp',
   'getJSON.jsp',

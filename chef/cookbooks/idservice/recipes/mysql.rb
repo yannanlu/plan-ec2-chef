@@ -4,6 +4,7 @@ node.override[db_type]['wrapper_cookbook'] = cookbook_name
 node.override[db_type]['db_name'] = node[cookbook_name]['db_name']
 node.override[db_type]['db_user'] = node[cookbook_name]['db_user'] 
 node.override[db_type]['db_passwd'] = node[cookbook_name]['db_passwd']
+db_passwd = node[cookbook_name]['db_passwd']
 db_sql_file = "mysql_#{node[cookbook_name]['db_sql_file']}"
 
 include_recipe "#{db_type}::db"
@@ -14,11 +15,11 @@ cookbook_file File.join(tmp, db_sql_file) do
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :run, "execute[create_tables]", :immediately
+  notifies :run, "execute[mysql_create_tables]", :immediately
 end
 
-execute 'create_tables' do
-  command "/usr/bin/mysql -u #{node[db_type]['db_user']} -p#{node[db_type]['db_passwd']} #{node[db_type]['db_name']} < #{File.join(tmp, db_sql_file)}"
+execute 'mysql_create_tables' do
+  command "/usr/bin/mysql -u #{node[db_type]['db_user']} -p'#{db_passwd}' #{node[db_type]['db_name']} < #{File.join(tmp, db_sql_file)}"
   user 'root'
   group 'root'
   cwd '/tmp'

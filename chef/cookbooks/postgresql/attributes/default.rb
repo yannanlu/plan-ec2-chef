@@ -1,7 +1,6 @@
 default['postgresql']['port'] = '5432'
 default['postgresql']['user'] = 'postgres'
 default['postgresql']['group'] = 'postgres'
-default['postgresql']['dir'] = '/etc/postgresql'
 default['postgresql']['db_name'] = 'testdb'
 default['postgresql']['db_user'] = 'guest'
 default['postgresql']['db_passwd'] = 'secret'
@@ -14,13 +13,15 @@ when "debian","ubuntu"
   default['postgresql']['pidfile'] = '/var/run/postgresql/9.5-main.pid'
   default['postgresql']['datadir'] = '/var/lib/postgresql/9.5/main'
   default['postgresql']['cfgdir'] = '/etc/postgresql/9.5/main'
+  default['postgresql']['pattern'] = nil
 when "redhat","centos"
   default['postgresql']['pkg_name'] = 'postgresql-server'
   default['postgresql']['pkg_version'] = '9.2.23-1.el7_4'
   default['postgresql']['homedir'] = '/var/lib/pgsql'
-  default['postgresql']['pidfile'] = '/var/run/postgresql/postgresql.pid'
+  default['postgresql']['pidfile'] = nil
   default['postgresql']['datadir'] = '/var/lib/pgsql/data'
   default['postgresql']['cfgdir'] = '/var/lib/pgsql/data'
+  default['postgresql']['pattern'] = '/usr/bin/postgres -D '
 else
   default['postgresql']['pkg_name'] = 'postgresql-server'
   default['postgresql']['pkg_version'] = nil
@@ -28,4 +29,5 @@ else
   default['postgresql']['pidfile'] = '/var/run/postgresql/postgresql.pid'
   default['postgresql']['datadir'] = '/var/lib/pgsql/data'
   default['postgresql']['cfgdir'] = '/var/lib/pgsql/data'
+  default['postgresql']['pattern'] = nil
 end

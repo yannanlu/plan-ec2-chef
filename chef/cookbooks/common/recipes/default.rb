@@ -15,10 +15,10 @@ template '/etc/sysctl.conf' do
     :list => node['common']['sysctl_props']
   )
   only_if { node['common']['sysctl_props'].length > 0 }
-  notifies :run, "execute[sysctl]", :immediately
+  notifies :run, "execute[common_sysctl]", :immediately
 end
 
-execute "sysctl" do
+execute "common_sysctl" do
   command "sysctl -p"
   user 'root'
   group 'root'

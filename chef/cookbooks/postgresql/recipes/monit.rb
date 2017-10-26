@@ -6,6 +6,7 @@ template File.join(node['monit']['includedir'], "#{cookbook_name}.monit") do
   mode 0644
   source "#{cookbook_name}.monit.erb"
   variables(
+    :pattern => node[cookbook_name]['pattern'],
     :pidfile => node[cookbook_name]['pidfile']
   )
   notifies :restart, "service[monit]"
