@@ -27,4 +27,4 @@ execute 'mysql_create_tables' do
 end
 
 include_recipe "#{cookbook_name}::default"
-include_recipe "#{cookbook_name}::apache2"
+include_recipe "#{cookbook_name}::apache"
