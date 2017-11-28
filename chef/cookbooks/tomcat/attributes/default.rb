@@ -12,6 +12,7 @@ when "debian","ubuntu"
   default['tomcat']['logdir'] = '/var/log/tomcat7'
   default['tomcat']['user'] = 'tomcat7'
   default['tomcat']['group'] = 'tomcat7'
+  default['tomcat']['se_mode'] = nil
 when "redhat","centos"
   default['tomcat']['pkg_name'] = 'tomcat'
   default['tomcat']['pkg_version'] = '7.0.76-2.el7'
@@ -20,6 +21,7 @@ when "redhat","centos"
   default['tomcat']['logdir'] = '/var/log/tomcat'
   default['tomcat']['user'] = 'tomcat'
   default['tomcat']['group'] = 'tomcat'
+  default['tomcat']['se_mode'] = nil 
 else
   default['tomcat']['pkg_name'] = 'tomcat'
   default['tomcat']['pkg_version'] = nil
@@ -28,4 +30,5 @@ else
   default['tomcat']['logdir'] = '/var/log/tomcat'
   default['tomcat']['user'] = 'tomcat'
   default['tomcat']['group'] = 'tomcat'
+  default['tomcat']['se_mode'] = nil
 end

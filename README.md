@@ -6,7 +6,7 @@ This Terraform plan treats the EC2 instance immutable on most of the EC2 propert
 
 ## Status
 
-Tested with Terraform v0.9.8 and images of Ubuntu and CentOS only
+Tested with images of Ubuntu and CentOS only
 
 ## Description
 
@@ -30,12 +30,12 @@ To show the state of the launched instances:
 terraform show
 ```
 
-To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application plus the database of MySQL and the web frontend of Apache:
+To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application plus the database of MySQL and the web frontend of Apache2:
 ```
 terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=mysql.json
 ```
 
-To apply the plan to provision an EC2 instance of Centos 7 with the default web application plus the database of Postgresql and the web frontend of Nginx:
+To apply the plan to provision an EC2 instance of Centos 7 with the default web application plus the database of Postgresql and the web frontend of Ngnix:
 ```
 terraform apply -var pem_file=~/.ssh/ylu.pem -var-file=centos.tfvars
 ```

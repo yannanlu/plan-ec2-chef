@@ -26,5 +26,6 @@ execute 'mysql_create_tables' do
   action :nothing
 end
 
+node.override['tomcat']['se_mode'] = 'permissive'
 include_recipe "#{cookbook_name}::default"
 include_recipe "#{cookbook_name}::apache"

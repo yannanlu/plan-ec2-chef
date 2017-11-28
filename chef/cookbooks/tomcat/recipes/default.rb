@@ -15,6 +15,15 @@ when "redhat","centos"
     user 'root'
     group 'root'
     only_if "/usr/sbin/getsebool httpd_can_network_connect | /usr/bin/grep off"
+    notifies :run, "execute[tomcat_se_permissive]", :immediately
+  end
+
+  execute "tomcat_se_permissive" do
+    command "/usr/sbin/semanage permissive -a tomcat_t"
+    user 'root'
+    group 'root'
+    action :nothing
+    only_if { node[cookbook_name]['se_mode'] == 'permissive' }
   end
 end
 

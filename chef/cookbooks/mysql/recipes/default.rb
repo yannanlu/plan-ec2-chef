@@ -46,14 +46,6 @@ when "redhat","centos"
     action :install
   end
 
-  execute "set_se_permissive" do
-    command "/usr/sbin/setenforce 0"
-    user 'root'
-    group 'root'
-    only_if "/usr/sbin/getenforce | /usr/bin/grep Enforcing"
-    not_if { node[cookbook_name]['se_mode'] != 'permissive' }
-  end
-
   service cookbook_name do
     service_name node[cookbook_name]['service_name']
     supports :status => true, :restart => true

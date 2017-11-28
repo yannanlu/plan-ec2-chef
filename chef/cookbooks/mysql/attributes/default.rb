@@ -19,7 +19,6 @@ when "debian","ubuntu"
   default['mysql']['pkg_name'] = 'mysql-server'
   default['mysql']['pkg_version'] = '5.7.19-0ubuntu0.16.04.1'
   default['mysql']['logfile'] = '/var/log/mysql/mysql.log'
-  default['mysql']['se_mode'] = nil
 when "redhat","centos"
   default['mysql']['dir'] = '/etc'
   default['mysql']['service_name'] = 'mysqld'
@@ -28,7 +27,6 @@ when "redhat","centos"
   default['mysql']['pkg_name'] = 'mysql-community-server'
   default['mysql']['pkg_version'] = '5.7.19-1.el7'
   default['mysql']['logfile'] = '/var/log/mysqld.log'
-  default['mysql']['se_mode'] = 'permissive'
 else
   default['mysql']['dir'] = '/etc'
   default['mysql']['service_name'] = 'mysqld'
@@ -37,5 +35,4 @@ else
   default['mysql']['pkg_name'] = nil
   default['mysql']['pkg_version'] = nil
   default['mysql']['logfile'] = '/var/log/mysqld.log'
-  default['mysql']['se_mode'] = nil
 end
