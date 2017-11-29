@@ -5,8 +5,6 @@ artifact = node['qbroker']['artifact']
 url = "#{node['qbroker']['repo_url']}/#{artifact}"
 qbroker_dir = File.join(node['qbroker']['basedir'], cookbook_name)
 
-#Chef::Log.info "#{tmp}: #{url}"
-
 group node['qbroker']['group'] do
   action :create
 end
