@@ -1,6 +1,6 @@
 default['qbroker']['user'] = 'qbadm'
 default['qbroker']['group'] = 'qb'
-default['qbroker']['repo_url'] = 'https://75.131.197.149'
+default['qbroker']['repo_url'] = 's3://ylutest/qbroker'
 default['qbroker']['artifact'] = 'qblite.tgz' 
 default['qbroker']['basedir'] = '/opt' 
 default['qbroker']['logdir'] = '/var/log/qbroker' 

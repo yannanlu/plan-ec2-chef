@@ -6,6 +6,13 @@ pkg_list.each do |pkg|
   end
 end
 
+execute "common_awscli" do
+  command "pip install awscli"
+  user 'root'
+  group 'root'
+  not_if "which aws"
+end
+
 template '/etc/sysctl.conf' do
   source 'sysctl.conf.erb'
   owner 'root'

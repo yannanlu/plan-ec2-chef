@@ -11,6 +11,7 @@ resource "aws_instance" "example" {
   instance_type = "${var.instance_type}"
   subnet_id = "${var.subnet_id}"
   vpc_security_group_ids = [ "${aws_security_group.example.id}" ] 
+  iam_instance_profile = "${var.iam_role}"
   key_name = "${var.key_name}"
   user_data = "${data.template_file.my_userdata.rendered}"
   root_block_device {

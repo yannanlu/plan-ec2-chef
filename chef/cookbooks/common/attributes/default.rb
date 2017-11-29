@@ -14,5 +14,6 @@ default['common']['pkg_list']  = [
     'jq',
     'git',
     'lsof',
-    'expect'
+    'expect',
+    'python-pip'
 ]

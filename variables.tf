@@ -18,6 +18,10 @@ variable "vpc_id" {
   default = "vpc-e8c95f81"
 }
 
+variable "iam_role" {
+  default = "S3GetRole"
+}
+
 variable "instance_tag" {
   default = "ylu_dev"
 }

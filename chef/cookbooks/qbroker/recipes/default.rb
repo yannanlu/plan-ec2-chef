@@ -25,15 +25,15 @@ directory qbroker_dir do
   action :create
 end
 
-#remote_file File.join(tmp, artifact) do
-#  source url
-#  mode "0644"
+#execute "qb_get" do
+#  command "curl -kO #{url}"
+#  cwd tmp
+#  not_if { File.exists?(File.join(tmp, artifact)) }
 #  notifies :run, "execute[qb_tarball]", :immediately
 #end
 
-execute "get" do
-  command "curl -kO #{url}"
-  cwd tmp
+execute "qb_get" do
+  command "aws s3 cp #{url} #{tmp}"
   not_if { File.exists?(File.join(tmp, artifact)) }
   notifies :run, "execute[qb_tarball]", :immediately
 end

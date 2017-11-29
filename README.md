@@ -57,6 +57,7 @@ In order to run this plan, the path of the ssh private key file for the key_name
 | aws_region                   | us-east-2       | EC2 region of AWS              | variables.tf, centos.tfvars          |
 | vpc_id                       | vpc-e8c95f81    | id of an existing VPC          | variables.tf, centos.tfvars          |
 | subnect_id                   | subnet-5e7cd125 | id of a Subnet on the VPC      | variables.tf, centos.tfvars          |
+| iam_role                     | S3GetRolw       | iam role for the instance      | variables.tf, centos.tfvars          |
 | default_user                 | ubuntu          | default user for ssh           | variables.tf, centos.tfvars          |
 | json_file                    | node.json       | json file for chef-solo        | variables.tf                         |
 
