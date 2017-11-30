@@ -1,6 +1,6 @@
 # plan-ec2-chef
 
-This is a Terraform plan to provision an EC2 instance with Chef-solo and the cookbooks loaded. Then it runs Chef-solo with the cookbooks on the EC2 instance. All the cookbooks are idempotent which means it is safe to run them multiple times. Currenly, it supports Ubuntu and CentOS only. The web applications of idservice and mbservice have been fully tested with Nginx and Apache. Within the web applications, cookbooks for Nginx, Apache2, Tomcat7, ActiveMQ and Postgresql are used.
+This is a Terraform plan to provision an EC2 instance with Chef-solo and the cookbooks loaded. Then it runs Chef-solo with the cookbooks on the EC2 instance. All the cookbooks are idempotent which means it is safe to run them multiple times. Currenly, it supports Ubuntu and CentOS only. The web applications of idservice and mbservice have been fully tested with Nginx and Apache. Within the web applications, cookbooks for Nginx, Apache2, Tomcat7, ActiveMQ, MySQL and Postgresql are used.
 
 This Terraform plan treats the EC2 instance immutable on most of the EC2 properties, such as AMI, Type, VPC, Networks, Volume, etc. It means if any of them needs to be changed, a new instance has to be created with the old instance destroyed. But for other server configurations, such as packages, applications, etc, they will be treated as mutable.
 
@@ -57,7 +57,7 @@ In order to run this plan, the path of the ssh private key file for the key_name
 | aws_region                   | us-east-2       | EC2 region of AWS              | variables.tf, centos.tfvars          |
 | vpc_id                       | vpc-e8c95f81    | id of an existing VPC          | variables.tf, centos.tfvars          |
 | subnect_id                   | subnet-5e7cd125 | id of a Subnet on the VPC      | variables.tf, centos.tfvars          |
-| iam_role                     | S3GetRolw       | iam role for the instance      | variables.tf, centos.tfvars          |
+| iam_role                     | S3GetRolw       | IAM role for the instance      | variables.tf, centos.tfvars          |
 | default_user                 | ubuntu          | default user for ssh           | variables.tf, centos.tfvars          |
 | json_file                    | node.json       | json file for chef-solo        | variables.tf                         |
 
