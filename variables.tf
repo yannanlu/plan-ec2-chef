@@ -42,6 +42,18 @@ variable "json_file" {
   default = "node.json"
 }
 
+variable "cookbook" {
+  default = "idservice"
+}
+
+variable "recipe" {
+  default = "postgresql"
+}
+
+variable "qbroker_repo_url" {
+  default = "s3://ylutest/qbroker"
+}
+
 variable "pem_file" {
   type = "string"
 }

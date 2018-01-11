@@ -2,7 +2,9 @@
 
 This is a Terraform plan to provision an EC2 instance with Chef-solo and the cookbooks loaded. Then it runs Chef-solo with the cookbooks on the EC2 instance. All the cookbooks are idempotent which means it is safe to run them multiple times. Currenly, it supports Ubuntu and CentOS only. The web applications of idservice and mbservice have been fully tested with Nginx and Apache. Within the web applications, cookbooks for Nginx, Apache2, Tomcat7, ActiveMQ, MySQL and Postgresql are used.
 
-This Terraform plan treats the EC2 instance immutable on most of the EC2 properties, such as AMI, Type, VPC, Networks, Volume, etc. It means if any of them needs to be changed, a new instance has to be created with the old instance destroyed. But for other server configurations, such as packages, applications, etc, they will be treated as mutable.
+This Terraform plan treats the EC2 instance immutable on most of the EC2 properties, such as AMI, Type, VPC, Subnet, Volume, etc. It means if any of them needs to be changed, a new instance has to be created with the old instance destroyed. But for other server configurations, such as packages, applications, etc, they will be treated as mutable.
+
+This plan also requires access to AWS S3 services. Therefore, it is assumed that a role to access S3 is already set up for the user account. By default, the role of S3GetRole is assigned to the instance at the creation. Make sure to overwrite the name of the role via iam_role if it has a different name. You may also overwrite the default attribute of repo_url in cookbook of qbroker via the varible of qbroker_repo_url.
 
 ## Status
 
@@ -32,7 +34,7 @@ terraform show
 
 To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the default web application plus the database of MySQL and the web frontend of Apache2:
 ```
-terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=mysql.json
+terraform apply -var pem_file=~/.ssh/ylu.pem -var recipe=mysql
 ```
 
 To apply the plan to provision an EC2 instance of Centos 7 with the default web application plus the database of Postgresql and the web frontend of Ngnix:
@@ -42,24 +44,27 @@ terraform apply -var pem_file=~/.ssh/ylu.pem -var-file=centos.tfvars
 
 To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the web application of mbservice and the web frontend of Nginx:
 ```
-terraform apply -var pem_file=~/.ssh/ylu.pem -var json_file=mbservice.json
+terraform apply -var pem_file=~/.ssh/ylu.pem -var cookbook=mbservice -var recipe=nginx
 ```
 
 In order to run this plan, the path of the ssh private key file for the key_name has to be specified in the command line under the var name of pem_file. It is also assumed that ~/.aws/credentials is set up with the access_key and secret_key. Further more, it is also assuemd that the ssh key pair has been set up on the AWS region. The following default variables will need to be customized to fit your choice:
 
-| Name                         | Value           | Description                    | File                                 |
-| ---                          | ---             | ---                            | ---                                  |
-| key_name                     | ylu             | name of your ssh key on AWS    | variables.tf, centos.tfvars          |
-| sg_name                      | sg_ylu          | name of the security group     | variables.tf, centos.tfvars          |
-| instance_tag                 | ylu_dev         | tag name for your EC2 instance | variables.tf, centos.tfvars          |
-| instance_type                | t2.micro        | type of EC2 instance           | variables.tf, centos.tfvars          |
-| image_id                     | ami-8b92b4ee    | AMI id for your OS platform    | variables.tf, centos.tfvars          |
-| aws_region                   | us-east-2       | EC2 region of AWS              | variables.tf, centos.tfvars          |
-| vpc_id                       | vpc-e8c95f81    | id of an existing VPC          | variables.tf, centos.tfvars          |
-| subnect_id                   | subnet-5e7cd125 | id of a Subnet on the VPC      | variables.tf, centos.tfvars          |
-| iam_role                     | S3GetRolw       | IAM role for the instance      | variables.tf, centos.tfvars          |
-| default_user                 | ubuntu          | default user for ssh           | variables.tf, centos.tfvars          |
-| json_file                    | node.json       | json file for chef-solo        | variables.tf                         |
+| Name                         | Value                | Description                    | File                                 |
+| ---                          | ---                  | ---                            | ---                                  |
+| key_name                     | ylu                  | name of your ssh key on AWS    | variables.tf, centos.tfvars          |
+| sg_name                      | sg_ylu               | name of the security group     | variables.tf, centos.tfvars          |
+| instance_tag                 | ylu_dev              | tag name for your EC2 instance | variables.tf, centos.tfvars          |
+| instance_type                | t2.micro             | type of EC2 instance           | variables.tf, centos.tfvars          |
+| image_id                     | ami-8b92b4ee         | AMI id for your OS platform    | variables.tf, centos.tfvars          |
+| aws_region                   | us-east-2            | EC2 region of AWS              | variables.tf, centos.tfvars          |
+| vpc_id                       | vpc-e8c95f81         | id of an existing VPC          | variables.tf, centos.tfvars          |
+| subnect_id                   | subnet-5e7cd125      | id of a Subnet on the VPC      | variables.tf, centos.tfvars          |
+| iam_role                     | S3GetRole            | IAM role for the instance      | variables.tf, centos.tfvars          |
+| default_user                 | ubuntu               | default user for ssh           | variables.tf, centos.tfvars          |
+| json_file                    | node.json            | json file for chef-solo        | variables.tf                         |
+| cookbook                     | idservice            | name of the wrapper cookbook   | variables.tf                         |
+| recipe                       | postgresql           | name of the recipe             | variables.tf                         |
+| qbroker_repo_url             | s3://ylutest/qbroker | url of the qbroker repo        | variables.tf                         |
 
 ## Author
 Yannan Lu <yannanlu@yahoo.com>

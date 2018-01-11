@@ -6,6 +6,16 @@ data "template_file" "my_userdata" {
   template = "${file("scripts/user_data.sh")}"
 }
 
+data "template_file" "my_jsonfile" {
+  template = "${file("templates/${var.json_file}.tpl")}"
+
+  vars {
+    qbroker_repo_url = "${var.qbroker_repo_url}"
+    cookbook = "${var.cookbook}"
+    recipe = "${var.recipe}"
+  }
+}
+
 resource "aws_instance" "example" {
   ami = "${var.image_id}"
   instance_type = "${var.instance_type}"
@@ -111,8 +121,19 @@ resource "null_resource" "chef" {
   }
 
   provisioner "file" {
-    source = "chef"
-    destination = "/var/cache"
+    source = "cookbooks"
+    destination = "/var/cache/chef"
+    connection {
+      host = "${aws_instance.example.public_dns}"
+      user = "${var.default_user}"
+      private_key = "${file("${var.pem_file}")}"
+      timeout = "60s"
+    }
+  }
+
+  provisioner "file" {
+    source = "solo.rb"
+    destination = "/var/cache/chef/solo.rb"
     connection {
       host = "${aws_instance.example.public_dns}"
       user = "${var.default_user}"
@@ -123,7 +144,8 @@ resource "null_resource" "chef" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo /opt/chef/bin/chef-solo -c /var/cache/chef/solo.rb -j /var/cache/chef/${var.json_file}"
+      "cat > /var/cache/chef/node.json <<EOF\n${data.template_file.my_jsonfile.rendered}\nEOF",
+      "sudo /opt/chef/bin/chef-solo -c /var/cache/chef/solo.rb -j /var/cache/chef/node.json"
     ]
     connection {
       type = "ssh"
