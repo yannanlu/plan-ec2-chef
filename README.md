@@ -2,7 +2,7 @@
 
 This is a Terraform plan to provision an EC2 instance with Chef-solo and the cookbooks loaded. Then it runs Chef-solo with the cookbooks on the EC2 instance. All the cookbooks are idempotent which means it is safe to run them multiple times. Currenly, it supports Ubuntu and CentOS only. The web applications of idservice and mbservice have been fully tested with Nginx and Apache. Within the web applications, cookbooks for Nginx, Apache2, Tomcat7, ActiveMQ, MySQL and Postgresql are used.
 
-This Terraform plan treats the EC2 instance immutable on most of the EC2 properties, such as AMI, Type, VPC, Subnet, Volume, etc. It means if any of them needs to be changed, a new instance has to be created with the old instance destroyed. But for other server configurations, such as packages, applications, etc, they will be treated as mutable.
+This Terraform plan treats the EC2 instance immutable on most of the EC2 properties, such as Region, AMI, Type, VPC, Subnet, Volume, etc. It means if any of them needs to be changed, a new instance will be created with the old instance destroyed. But for other server configurations, such as packages, applications, etc, they will be treated as mutable.
 
 This plan also requires access to AWS S3 services. Therefore, it is assumed that a role to access S3 is already set up for the user account. By default, the role of S3GetRole is assigned to the instance at the creation. Make sure to overwrite the name of the role via iam_role if it has a different name. You may also overwrite the default attribute of repo_url in cookbook of qbroker via the varible of qbroker_repo_url.
 
@@ -47,7 +47,7 @@ To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the web 
 terraform apply -var pem_file=~/.ssh/ylu.pem -var cookbook=mbservice -var recipe=nginx
 ```
 
-In order to run this plan, the path of the ssh private key file for the key_name has to be specified in the command line under the var name of pem_file. It is also assumed that ~/.aws/credentials is set up with the access_key and secret_key. Further more, it is also assuemd that the ssh key pair has been set up on the AWS region. The following default variables will need to be customized to fit your choice:
+In order to run this plan, the path of the ssh private key file for the key_name has to be specified in the command line under the var name of pem_file. It is also assumed that ~/.aws/credentials is set up with the access_key and secret_key. Further more, it is also assuemd that the ssh key pair has been set up on the AWS region. The following default values of the variables will need to be customized to fit your choice:
 
 | Name                         | Value                | Description                    | File                                 |
 | ---                          | ---                  | ---                            | ---                                  |
