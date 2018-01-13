@@ -99,6 +99,16 @@ resource "aws_security_group" "example" {
   }
 }
 
+resource "aws_security_group_rule" "extra_rule" {
+  count             = "${replace(var.extra_rule_port, "/^[1-9][0-9]*$/", "1")}"
+  type              = "ingress"
+  from_port         = "${var.extra_rule_port}"
+  to_port           = "${var.extra_rule_port}"
+  protocol          = "tcp"
+  cidr_blocks       = ["${var.extra_rule_cidr}"]
+  security_group_id = "${aws_security_group.example.id}"
+}
+
 output "public_dns" {
   value = "${aws_instance.example.public_dns}"
 }

@@ -1,0 +1,13 @@
+aws_region = "us-east-1"
+instance_type = "t2.micro"
+image_id = "ami-ae7bfdb8"
+subnet_id = "subnet-47eb1e48"
+vpc_id = "vpc-745a650c"
+iam_role = ""
+instance_tag = "ylu_dev"
+sg_name = "sg_ylu"
+key_name = "ylu"
+default_user = "centos"
+extra_rule_port = 80
+cookbook = "rotation"
+recipe = "apache"

@@ -42,6 +42,14 @@ variable "json_file" {
   default = "node.json"
 }
 
+variable "extra_rule_port" {
+  default = 0
+}
+
+variable "extra_rule_cidr" {
+  default = "0.0.0.0/0"
+}
+
 variable "cookbook" {
   default = "idservice"
 }
