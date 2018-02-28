@@ -17,6 +17,7 @@ data "template_file" "my_jsonfile" {
 }
 
 resource "aws_instance" "example" {
+  count = 1
   ami = "${var.image_id}"
   instance_type = "${var.instance_type}"
   subnet_id = "${var.subnet_id}"
@@ -155,7 +156,7 @@ resource "null_resource" "chef" {
   provisioner "remote-exec" {
     inline = [
       "cat > /var/cache/chef/node.json <<EOF\n${data.template_file.my_jsonfile.rendered}\nEOF",
-      "sudo /opt/chef/bin/chef-solo -c /var/cache/chef/solo.rb -j /var/cache/chef/node.json"
+      "sudo -H /opt/chef/bin/chef-solo -c /var/cache/chef/solo.rb -j /var/cache/chef/node.json"
     ]
     connection {
       type = "ssh"

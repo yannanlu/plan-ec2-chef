@@ -1,3 +1,5 @@
+default['mbservice']['security_plugin'] = 'qbroker-security-1.0.0.jar'
+
 default['mbservice']['jsp_files'] = [
   'date.jsp',
   'getJSON.jsp',
@@ -19,6 +21,6 @@ default['mbservice']['jar_files'] = [
   'log4j-1.2.12.jar',
   'mail.jar',
   'activemq-all-5.3.1.jar',
-  'qbroker-1.2.0.jar',
+  'qbroker-1.2.1.jar',
   'xercesImpl.jar'
 ]

@@ -3,6 +3,7 @@ default['idservice']['db_name'] = 'eventdb'
 default['idservice']['db_user'] = 'eventdba'
 default['idservice']['db_passwd'] = 'secret'
 default['idservice']['db_sql_file'] = 'eventid.sql'
+default['idservice']['security_plugin'] = 'qbroker-security-1.0.0.jar'
 
 default['idservice']['jsp_files'] = [
   'date.jsp',
@@ -36,6 +37,6 @@ default['idservice']['jar_files'] = [
   'mail.jar',
   'postgresql-9.1-903.jdbc4.jar',
   'mysql-connector-java-5.0.8-bin.jar',
-  'qbroker-1.2.0.jar',
+  'qbroker-1.2.1.jar',
   'xercesImpl.jar'
 ]

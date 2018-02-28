@@ -45,7 +45,7 @@ execute "qb_tarball" do
 end
 
 directory node['qbroker']['logdir'] do
-  owner node['qbroker']['user'] 
+  owner node['qbroker']['user']
   group node['qbroker']['group']
   mode  '0755'
   action :create
@@ -53,9 +53,25 @@ end
 
 %w{.status archive checkpoint stats}.each do |dir|
   directory File.join(node['qbroker']['logdir'], dir) do
-    owner node['qbroker']['user'] 
+    owner node['qbroker']['user']
     group node['qbroker']['group']
     mode  '0755'
     action :create
+  end
+end
+
+if node['qbroker']['security_plugin'] != nil
+  plugin = node['qbroker']['security_plugin']
+  url = "#{node['qbroker']['repo_url']}/#{plugin}"
+  execute "qb_security_plugin_get" do
+    command "aws s3 cp #{url} #{tmp}"
+    not_if { File.exists?(File.join(tmp, plugin)) }
+  end
+
+  remote_file File.join(qbroker_dir, 'lib', plugin) do
+    source "file://#{File.join(tmp, plugin)}"
+    owner node['qbroker']['user']
+    group node['qbroker']['group']
+    mode '0644'
   end
 end
