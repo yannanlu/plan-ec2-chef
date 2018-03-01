@@ -64,7 +64,7 @@ In order to run this plan, the path of the ssh private key file for the key_name
 | default_user                 | ubuntu               | default user for ssh           | variables.tf          |
 | json_file                    | node.json            | json file for chef-solo        | variables.tf          |
 | wrapper_cookbook             | idservice            | name of the wrapper cookbook   | variables.tf          |
-| recipe                       | postgresql           | name of recipe of the cookbook | variables.tf          |
+| recipe                       | postgresql           | name of the recipe             | variables.tf          |
 | extra_rule_port              | 0                    | port number of the rule        | variables.tf          |
 | extra_rule_cidr              | 0.0.0.0/0            | cidr string of the rule        | variables.tf          |
 | qbroker_repo_url             | s3://ylutest/qbroker | url of the qbroker repo        | variables.tf          |

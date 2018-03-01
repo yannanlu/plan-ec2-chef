@@ -12,7 +12,7 @@ data "template_file" "my_jsonfile" {
 
   vars {
     qbroker_repo_url = "${var.qbroker_repo_url}"
-    cookbook = "${var.cookbook}"
+    cookbook = "${var.wrapper_cookbook}"
     recipe = "${var.recipe}"
   }
 }
