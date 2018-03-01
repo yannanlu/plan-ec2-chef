@@ -1,5 +1,6 @@
 provider "aws" {
-  region = "${var.aws_region}"
+  profile = "${var.profile}"
+  region = "${var.region}"
 }
 
 data "template_file" "my_userdata" {

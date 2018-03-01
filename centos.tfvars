@@ -1,4 +1,4 @@
-aws_region = "us-east-2"
+region = "us-east-2"
 instance_type = "t2.micro"
 image_id = "ami-9cbf9bf9"
 subnet_id = "subnet-5e7cd125"

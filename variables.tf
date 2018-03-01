@@ -1,4 +1,8 @@
-variable "aws_region" {
+variable "profile" {
+  default = "default"
+}
+
+variable "region" {
   default = "us-east-2"
 }
 
@@ -50,7 +54,7 @@ variable "extra_rule_cidr" {
   default = "0.0.0.0/0"
 }
 
-variable "cookbook" {
+variable "wrapper_cookbook" {
   default = "idservice"
 }
 

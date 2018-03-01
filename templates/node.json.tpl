@@ -4,6 +4,6 @@
   },
   "run_list": [
     "recipe[common::default]",
-    "recipe[${cookbook}::${recipe}]"
+    "recipe[${wrapper_cookbook}::${recipe}]"
   ]
 }
