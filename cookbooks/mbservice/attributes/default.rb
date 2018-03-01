@@ -21,6 +21,5 @@ default['mbservice']['jar_files'] = [
   'log4j-1.2.12.jar',
   'mail.jar',
   'activemq-all-5.3.1.jar',
-  'qbroker-1.2.1.jar',
-  'xercesImpl.jar'
+  'qbroker-1.2.1.jar'
 ]

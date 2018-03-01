@@ -37,6 +37,5 @@ default['idservice']['jar_files'] = [
   'mail.jar',
   'postgresql-9.1-903.jdbc4.jar',
   'mysql-connector-java-5.0.8-bin.jar',
-  'qbroker-1.2.1.jar',
-  'xercesImpl.jar'
+  'qbroker-1.2.1.jar'
 ]
