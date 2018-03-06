@@ -22,3 +22,8 @@ default['activemq']['admin_ip'] = '127.0.0.1'
 default['activemq']['admin_port'] = '8161'
 default['activemq']['admin_user'] = 'admin'
 default['activemq']['admin_passwd'] = 'admin'
+default['activemq']['location'] = {
+  'service' => 'admin',
+  'proxy' => 'http://127.0.0.1:8161',
+  'expire' => 'off'
+}

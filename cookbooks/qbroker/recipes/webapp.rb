@@ -19,15 +19,6 @@ directory File.join(qbroker_dir, 'flow', id) do
   mode '0755'
 end
 
-template File.join(tomcat_dir, 'web.xml') do
-  source 'web.xml.erb'
-  owner 'root'
-  group node['tomcat']['group']
-  mode '0644'
-  variables( :is_readonly => 'false' )
-  notifies :restart, "service[tomcat]"
-end
-
 template File.join(tomcat_dir, 'Catalina', 'localhost', "#{webapp_context}.xml") do
   source 'context.xml.erb'
   owner 'root'

@@ -23,3 +23,9 @@ default['mbservice']['jar_files'] = [
   'activemq-all-5.3.1.jar',
   'qbroker-1.2.1.jar'
 ]
+
+default['mbservice']['location'] = {
+  'service' => 'mbservice',
+  'proxy' => 'http://127.0.0.1:8080',
+  'expire' => 'off'
+}

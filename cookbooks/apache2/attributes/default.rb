@@ -1,3 +1,5 @@
+default['apache2']['locations'] = []
+
 case node['platform']
 when "debian","ubuntu"
   default['apache2']['pkg_name']  = 'apache2'

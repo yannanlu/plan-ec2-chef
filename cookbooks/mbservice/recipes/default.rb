@@ -1,5 +1,6 @@
 include_recipe "activemq"
 
+node.override['tomcat']['is_readonly'] = 'false'
 node.override['qbroker']['webapp_context'] = cookbook_name
 node.override['qbroker']['wrapper_cookbook'] = cookbook_name
 node.override['qbroker']['service_id'] = cookbook_name.slice(0,2).upcase

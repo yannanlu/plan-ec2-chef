@@ -27,6 +27,15 @@ when "redhat","centos"
   end
 end
 
+template File.join(node['tomcat']['dir'], 'web.xml') do
+  source 'web.xml.erb'
+  owner 'root'
+  group node['tomcat']['group']
+  mode '0644'
+  variables( :is_readonly => node['tomcat']['is_readonly'] )
+  notifies :restart, "service[tomcat]"
+end
+
 service "tomcat" do
   service_name node['tomcat']['pkg_name']
   supports :status => true, :restart => true

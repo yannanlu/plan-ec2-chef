@@ -9,8 +9,8 @@ Listen 443
     SSLCertificateKeyFile "<%= @conf_dir %>/server.key"
 
     ProxyRequests Off
-    ProxyPass "/mbservice" "http://localhost:8080/mbservice"
-    ProxyPassReverse "/mbservice" "http://localhost:8080/mbservice"
-    ProxyPass "/admin" "http://localhost:8161/admin"
-    ProxyPassReverse "/admin" "http://localhost:8161/admin"
+<% @locations.each do |item| %>
+    ProxyPass "/<%= item['service'] %>" "<%= item['proxy'] %>/<%= item['service'] %>"
+    ProxyPassReverse "/<%= item['service'] %>" "<%= item['proxy'] %>/<%= item['service'] %>"
+<% end %>
 </VirtualHost>

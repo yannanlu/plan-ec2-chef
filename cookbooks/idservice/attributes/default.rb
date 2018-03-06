@@ -39,3 +39,9 @@ default['idservice']['jar_files'] = [
   'mysql-connector-java-5.0.8-bin.jar',
   'qbroker-1.2.1.jar'
 ]
+
+default['idservice']['location'] = {
+  'service' => 'idservice',
+  'proxy' => 'http://127.0.0.1:8080',
+  'expire' => 'off'
+}

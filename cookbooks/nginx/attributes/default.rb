@@ -1,6 +1,7 @@
 default['nginx']['dir']     = '/etc/nginx'
 default['nginx']['logdir'] = '/var/log/nginx'
 default['nginx']['pidfile'] = '/var/run/nginx.pid'
+default['nginx']['locations'] = []
 
 case node['platform']
 when "debian","ubuntu"
