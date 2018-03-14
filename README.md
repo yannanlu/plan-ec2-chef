@@ -4,7 +4,7 @@ This is a Terraform plan to provision an EC2 instance with Chef-solo and the coo
 
 This Terraform plan treats the EC2 instance immutable on most of the EC2 properties, such as Region, AMI, Type, VPC, Subnet, Volume, etc. It means if any of them needs to be changed, a new instance will be created with the old instance destroyed. But for other server configurations, such as packages, applications, etc, they will be treated as mutable.
 
-This plan also requires access to AWS S3 services. Therefore, it is assumed that a role to access S3 is already set up for the user account. By default, the role of S3GetRole is assigned to the instance at the creation. Make sure to overwrite the name of the role via iam_role if it has a different name. You may also overwrite the default attribute of repo_url in cookbook of qbroker via the varible of qbroker_repo_url.
+This plan also requires access to AWS S3 service for the artifact of qblite-1.0.0.tgz. Therefore, it is assumed that the artifact is already uploaded to a S3 bucket and a role to access S3 is already set up for the user account. By default, the role of S3GetRole is assigned to the instance at the creation. Make sure to overwrite the name of the role via iam_role if it has a different name. You may also overwrite the default attribute of repo_url in cookbook of qbroker via the varible of qbroker_repo_url.
 
 ## Status
 
