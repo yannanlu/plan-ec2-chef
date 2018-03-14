@@ -1,4 +1,4 @@
-check process elasticsearch with pidfile <%= @pidfile %>
+check process cassandra with pidfile <%= @pidfile %>
     start program = "<%= @start_program %>"
     stop program = "<%= @stop_program %>"
     if does not exist 5 cycles then restart

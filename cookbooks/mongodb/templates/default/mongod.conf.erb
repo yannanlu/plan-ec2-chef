@@ -1,0 +1,19 @@
+storage:
+  dbPath: <%= @dbpath %>
+  journal:
+    enabled: true
+
+<% if @pidfile != nil %>
+processManagement:
+  fork: true
+  pidFilePath: <%= @pidfile %>
+
+<% end %>
+systemLog:
+  destination: file
+  logAppend: true
+  path: <%= @logfile %>
+
+net:
+  port: <%= @port %>
+  bindIp: <%= @bind_ip %>

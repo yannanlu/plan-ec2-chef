@@ -6,14 +6,15 @@ when "debian","ubuntu"
     action :install
   end
 when "redhat","centos"
-  cookbook_file File.join("/etc/yum.repos.d", "influxdb.repo") do
-    owner "root"
-    group "root"
-    mode "0644"
-    source "influxdb.repo"
+  yum_repository cookbook_name do
+    description "InfluxDB Repository"
+    baseurl node[cookbook_name]['repo_uri']
+    gpgkey node[cookbook_name]['gpg_key']
+    action :create
   end
 
   yum_package node[cookbook_name]['pkg_name'] do
+    flush_cache [ :before ]
     action :install
   end
 end

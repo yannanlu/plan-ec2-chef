@@ -17,14 +17,15 @@ when "debian","ubuntu"
     notifies :restart, "service[#{cookbook_name}]"
   end
 when "redhat","centos"
-  cookbook_file File.join("/etc/yum.repos.d", "#{cookbook_name}.repo") do
-    owner "root"
-    group "root"
-    mode "0644"
-    source "#{cookbook_name}.repo"
+  yum_repository cookbook_name do
+    description "Elasticsearch 6.x repo"
+    baseurl node[cookbook_name]['repo_uri']
+    gpgkey node[cookbook_name]['gpg_key']
+    action :create
   end
 
   yum_package node[cookbook_name]['pkg_name'] do
+    flush_cache [ :before ]
     action :install
   end
 
