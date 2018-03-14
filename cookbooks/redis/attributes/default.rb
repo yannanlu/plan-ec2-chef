@@ -1,5 +1,8 @@
 default['redis']['port'] = '6379'
 default['redis']['bind_ip'] = '127.0.0.1'
+default['redis']['user'] = 'redis'
+default['redis']['group'] = 'redis'
+default['redis']['db_dir'] = '/var/lib/redis'
 default['redis']['log_level'] = 'notice'
 
 case node['platform']

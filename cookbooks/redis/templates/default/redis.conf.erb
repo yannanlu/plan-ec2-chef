@@ -1,12 +1,12 @@
 daemonize yes
-pidfile <%= node['redis']['pidfile'] %>
-port <%= node['redis']['port'] %>
-tcp-backlog 511
-bind <%= node['redis']['bind_ip'] %>
+pidfile <%= @pidfile %>
+port <%= @port %>
+tcp-backlog 127
+bind <%= @bind_ip %>
 timeout 0
-tcp-keepalive 300
-loglevel <%= node['redis']['log_level'] %>
-logfile <%= node['redis']['logfile'] %>
+tcp-keepalive 0
+loglevel <%= @log_level %>
+logfile <%= @logfile %>
 databases 16
 save 900 1
 save 300 10
@@ -15,7 +15,7 @@ stop-writes-on-bgsave-error yes
 rdbcompression yes
 rdbchecksum yes
 dbfilename dump.rdb
-dir {{redis_dir}}
+dir <%= @db_dir %>
 slave-serve-stale-data yes
 slave-read-only yes
 repl-diskless-sync no
