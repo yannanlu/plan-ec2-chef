@@ -1,6 +1,6 @@
 node.override['qbroker']['webapp_context'] = cookbook_name
 node.override['qbroker']['wrapper_cookbook'] = cookbook_name
-node.override['qbroker']['service_id'] = cookbook_name.slice(0,2).upcase
+node.override['qbroker']['service_id'] = cookbook_name.sub(/service$/,'').upcase
 if node['idservice']['security_plugin'] != nil
   node.override['qbroker']['security_plugin']=node['idservice']['security_plugin']
 end
@@ -16,7 +16,7 @@ node.override['qbroker']['jar_files'] = node[cookbook_name]['jar_files']
 
 include_recipe "qbroker::webapp"
 
-qbroker_dir = File.join(node['qbroker']['basedir'], 'qbroker')
+qbroker_dir = node['qbroker']['dir']
 id = node['qbroker']['service_id']
 
 template File.join(qbroker_dir, 'flow', id, 'Flow.json') do
@@ -26,8 +26,8 @@ template File.join(qbroker_dir, 'flow', id, 'Flow.json') do
   mode '0644'
   variables(
     :id => id,
-    :logdir => node['tomcat']['logdir'],
-    :cfgdir => "#{qbroker_dir}/flow/#{id}" 
+    :qb_dir => qbroker_dir,
+    :log_dir => node['tomcat']['logdir']
   )
   notifies :restart, "service[tomcat]"
 end

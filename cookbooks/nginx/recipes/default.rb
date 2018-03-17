@@ -9,6 +9,12 @@ template File.join(nginx_dir, "nginx.conf") do
   group "root"
   mode 0644
   source "nginx.conf.erb"
+  variables(
+    :cfgdir => nginx_dir,
+    :user => node['nginx']['user'],
+    :logdir => node['nginx']['logdir'],
+    :pidfile => node['nginx']['pidfile']
+  )
   notifies :restart, "service[nginx]"
 end
 
@@ -28,8 +34,26 @@ template File.join(nginx_dir, 'conf.d', 'default.conf') do
   group 'root'
   mode '0644'
   variables(
+    :cfgdir => nginx_dir,
+    :logdir => node['nginx']['logdir'],
     :locations => node['nginx']['locations']
   )
+  notifies :restart, "service[nginx]"
+end
+
+template File.join(nginx_dir, 'conf.d', 'server.conf') do
+  source 'server.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables(
+    :port => node['nginx']['extra_server']['port'],
+    :server_name => node['nginx']['extra_server']['server_name'],
+    :docroot => node['nginx']['extra_server']['docroot'],
+    :logdir => node['nginx']['logdir'],
+    :log_locations => node['nginx']['log_locations']
+  )
+  not_if { node['nginx']['extra_server'].empty? }
   notifies :restart, "service[nginx]"
 end
 

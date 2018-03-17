@@ -3,9 +3,9 @@
 ## for QFlow_<%= @id %>
 
 ID=<%= @id %>
-OWNER=<%= @user %>
+OWNER=<%= @qb_user %>
 QF_SCRIPT=QFlow_${ID}.sh
-SCRIPT_HOME=<%= @homedir %>/bin
+SCRIPT_HOME=<%= @qb_dir %>/bin
 START_SCRIPT="${QF_SCRIPT} start"
 STOP_SCRIPT="${QF_SCRIPT} stop"
 

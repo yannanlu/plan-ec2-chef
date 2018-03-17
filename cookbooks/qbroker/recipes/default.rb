@@ -1,34 +1,27 @@
 include_recipe "java::default"
 
 tmp = Chef::Config[:file_cache_path]
-artifact = node['qbroker']['artifact']
-url = "#{node['qbroker']['repo_url']}/#{artifact}"
-qbroker_dir = File.join(node['qbroker']['basedir'], cookbook_name)
+artifact = node[cookbook_name]['artifact']
+url = "#{node[cookbook_name]['repo_url']}/#{artifact}"
+qbroker_dir = node[cookbook_name]['dir']
 
-group node['qbroker']['group'] do
+group node[cookbook_name]['group'] do
   action :create
 end
 
-user node['qbroker']['user'] do
+user node[cookbook_name]['user'] do
   action :create
-  group node['qbroker']['group']
+  group node[cookbook_name]['group']
   shell '/sbin/nologin'
   manage_home false
 end
 
 directory qbroker_dir do
-  owner node['qbroker']['user']
-  group node['qbroker']['group']
+  owner node[cookbook_name]['user']
+  group node[cookbook_name]['group']
   mode  '0755'
   action :create
 end
-
-#execute "qb_get" do
-#  command "curl -kO #{url}"
-#  cwd tmp
-#  not_if { File.exists?(File.join(tmp, artifact)) }
-#  notifies :run, "execute[qb_tarball]", :immediately
-#end
 
 execute "qb_get" do
   command "aws s3 cp #{url} #{tmp}"
@@ -38,31 +31,31 @@ end
 
 execute "qb_tarball" do
   command "tar zxf #{tmp}/#{artifact}"
-  user node['qbroker']['user']
-  group node['qbroker']['group']
-  cwd node['qbroker']['basedir']
+  user node[cookbook_name]['user']
+  group node[cookbook_name]['group']
+  cwd File.dirname(qbroker_dir)
   action :nothing
 end
 
-directory node['qbroker']['logdir'] do
-  owner node['qbroker']['user']
-  group node['qbroker']['group']
+directory node[cookbook_name]['logdir'] do
+  owner node[cookbook_name]['user']
+  group node[cookbook_name]['group']
   mode  '0755'
   action :create
 end
 
 %w{.status archive checkpoint stats}.each do |dir|
-  directory File.join(node['qbroker']['logdir'], dir) do
-    owner node['qbroker']['user']
-    group node['qbroker']['group']
+  directory File.join(node[cookbook_name]['logdir'], dir) do
+    owner node[cookbook_name]['user']
+    group node[cookbook_name]['group']
     mode  '0755'
     action :create
   end
 end
 
-if node['qbroker']['security_plugin'] != nil
-  plugin = node['qbroker']['security_plugin']
-  url = "#{node['qbroker']['repo_url']}/#{plugin}"
+if node[cookbook_name]['security_plugin'] != nil
+  plugin = node[cookbook_name]['security_plugin']
+  url = "#{node[cookbook_name]['repo_url']}/#{plugin}"
   execute "qb_security_plugin_get" do
     command "aws s3 cp #{url} #{tmp}"
     not_if { File.exists?(File.join(tmp, plugin)) }
@@ -70,8 +63,8 @@ if node['qbroker']['security_plugin'] != nil
 
   remote_file File.join(qbroker_dir, 'lib', plugin) do
     source "file://#{File.join(tmp, plugin)}"
-    owner node['qbroker']['user']
-    group node['qbroker']['group']
+    owner node[cookbook_name]['user']
+    group node[cookbook_name]['group']
     mode '0644'
   end
 end

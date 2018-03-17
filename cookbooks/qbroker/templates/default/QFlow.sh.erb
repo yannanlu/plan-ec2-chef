@@ -1,19 +1,22 @@
 #!/bin/bash
 
 DAEMON=org.qbroker.flow.QFlow
-QBDIR=<%= @homedir %>
-LOGDIR=<%= @logdir %>
-JAVA=/usr/bin/java
+QBDIR=<%= @qb_dir %>
+LOGDIR=<%= @log_dir %>
 ID=<%= @id %>
-OWNER=<%= @user %>
+JAVA_OPTS="<%= @java_opts %>"
+JAVA=/usr/bin/java
 PS=/bin/ps
 
 CLASSPATH=\
-<% @jarfiles.each do |f| %>
+<% @jar_files.each do |f| %>
 $QBDIR/lib/<%= f %>:\
 <% end %>
 $QBDIR/lib/:$CLASSPATH
 export CLASSPATH
+
+TZ=US/Eastern
+export TZ
 
 ## get pids for QBroker daemon processes with string patterns
 getDaemonprocs() {
@@ -58,7 +61,7 @@ case $1 in
         test "$QFLOW_PIDS" != "" && /bin/kill $QFLOW_PIDS
 
         cd $QBDIR/bin
-        $JAVA -DQF_${ID} -DLoggerName=QFlow_${ID} <%= @javaopts %> $DAEMON -I $QBDIR/flow/${ID}/Flow.json >> $LOGDIR/QFlow_${ID}.out 2>&1 &
+        $JAVA -DQF_${ID} -DLoggerName=QFlow_${ID} ${JAVA_OPTS} $DAEMON -I $QBDIR/flow/${ID}/Flow.json >> $LOGDIR/QFlow_${ID}.out 2>&1 &
     fi
     ;;
 
