@@ -1,7 +1,7 @@
-db_name = node[cookbook_name]['db_name']
-node.override['influxdb']['db_name'] = db_name
+key = node[cookbook_name]['es_template']
+node.override['elasticsearch']['index_template'][key] = cookbook_name
 
-include_recipe "influxdb"
+include_recipe "elasticsearch"
 
 node.override['qbroker']['wrapper_cookbook'] = cookbook_name
 node.override['qbroker']['service_id'] = cookbook_name.sub(/flow$/, '').upcase
@@ -21,7 +21,7 @@ qbroker_dir = node['qbroker']['dir']
 id = node['qbroker']['service_id']
 service = node[cookbook_name]['log_location']['service']
 log_file = File.join(node['nginx']['logdir'], "#{service}.log")
-db_url = "http://#{node['influxdb']['bind_ip']}:#{node['influxdb']['port']}/write?db=#{db_name}"
+es_url = "http://#{node['elasticsearch']['bind_ip']}:#{node['elasticsearch']['port']}/"
 
 template File.join(qbroker_dir, 'flow', id, 'Flow.json') do
   source 'Flow.json.erb'
@@ -44,7 +44,7 @@ template File.join(qbroker_dir, 'flow', id, 'rpt_global_var.json') do
   variables(
     :log_dir => node['qbroker']['logdir'],
     :log_file => log_file,
-    :db_url => db_url
+    :es_url => es_url
   )
   notifies :restart, "service[qbroker]"
 end

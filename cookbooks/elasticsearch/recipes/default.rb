@@ -14,7 +14,7 @@ when "debian","ubuntu"
     variables(
       :heapsize => node[cookbook_name]['heapsize']
     )
-    notifies :restart, "service[#{cookbook_name}]"
+    notifies :restart, "service[#{cookbook_name}]", :immediately
   end
 when "redhat","centos"
   yum_repository cookbook_name do
@@ -37,14 +37,35 @@ when "redhat","centos"
     variables(
       :heapsize => node[cookbook_name]['heapsize']
     )
-    notifies :restart, "service[#{cookbook_name}]"
+    notifies :restart, "service[#{cookbook_name}]", :immediately
   end
 end
 
 service cookbook_name do
   service_name node[cookbook_name]['pkg_name']
   supports :status => true, :restart => true
-  action [ :enable, :restart ]
+  action [ :enable, :start ]
+  notifies :run, "execute[elasticsearch_pause]", :immediately
+end
+
+execute "elasticsearch_pause" do
+  command "sleep 10"
+  action :nothing
+end
+
+tmp = Chef::Config[:file_cache_path]
+node[cookbook_name]['index_template'].each do |tp, cb|
+  tmp_file = File.join(tmp, "#{tp}.json")
+  cookbook_file tmp_file do
+    cookbook cb
+    source "#{tp}.json"
+    mode '0644'
+  end
+
+  execute "es_index_#{tp}" do
+    command "curl -XPUT -s http://localhost:#{node[cookbook_name]['port']}/_template/#{tp} -d @#{tmp_file}"
+    not_if "curl -I -s http://localhost:#{node[cookbook_name]['port']}/_template/#{tp} | grep ' 200 OK'"
+  end
 end
 
 include_recipe "#{cookbook_name}::monit"

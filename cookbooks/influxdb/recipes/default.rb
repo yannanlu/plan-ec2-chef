@@ -45,7 +45,7 @@ service cookbook_name do
 end
 
 execute "influxdb_pause" do
-  command "sleep 3"
+  command "sleep 5"
   action :nothing
 end
 

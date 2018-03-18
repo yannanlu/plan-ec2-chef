@@ -15,3 +15,5 @@ when "redhat","centos"
   default['elasticsearch']['repo_uri'] = 'https://artifacts.elastic.co/packages/6.x/yum'
   default['elasticsearch']['gpg_key'] = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
 end
+
+default['elasticsearch']['index_template'] = {}
