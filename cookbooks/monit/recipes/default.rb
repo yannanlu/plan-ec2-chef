@@ -25,6 +25,16 @@ template File.join(node[cookbook_name]['dir'], "monitrc") do
   notifies :restart, "service[monit]"
 end
 
+template File.join(node[cookbook_name]['includedir'], "os_release.monit") do
+  owner "root"
+  group "root"
+  mode 0644
+  source "os_release.monit.erb"
+  variables(
+    :release_file => node[cookbook_name]['os_release_file']
+  )
+end
+
 service cookbook_name do
   supports :status => true, :restart => true, :reload => true
   action [:enable, :start]
