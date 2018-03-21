@@ -47,6 +47,11 @@ To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS with the web 
 terraform apply -var pem_file=~/.ssh/ylu.pem -var wrapper_cookbook=mbservice -var recipe=nginx
 ```
 
+To apply the plan to provision an EC2 instance of CentOS 7 with the eventflow and an instance of Elasticsearch:
+```
+terraform apply -var pem_file=~/.ssh/ylu.pem -var profile=test var-file=centos.tfvars -var wrapper_cookbook=eventflow -var recipe=default -var swap_size=1024
+```
+
 In order to run this plan, the path of the ssh private key file for the key_name has to be specified in the command line under the var name of pem_file. It is also assumed that ~/.aws/credentials is set up with the access_key and secret_key for either the default profile or a specific profile. Further more, it is also assuemd that the ssh key pair has been set up on the AWS region. The default values of the following variables may need to be customized to fit your choice:
 
 | Name                         | Value                | Description                    | File                  |
@@ -68,6 +73,7 @@ In order to run this plan, the path of the ssh private key file for the key_name
 | extra_rule_port              | 0                    | port number of the rule        | variables.tf          |
 | extra_rule_cidr              | 0.0.0.0/0            | cidr string of the rule        | variables.tf          |
 | qbroker_repo_url             | s3://ylutest/qbroker | url of the qbroker repo        | variables.tf          |
+| swap_size                    | 0                    | number of MB for swap sapce    | variables.tf          |
 
 ## Author
 Yannan Lu <yannanlu@yahoo.com>
