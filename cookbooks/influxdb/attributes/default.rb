@@ -4,6 +4,7 @@ default['influxdb']['port'] = '8086'
 default['influxdb']['bind_ip'] = '127.0.0.1'
 default['influxdb']['pkg_name'] = 'influxdb'
 default['influxdb']['db_name'] = nil
+default['influxdb']['pausetime'] = '5' 
 default['influxdb']['dir'] = '/etc/influxdb'
 default['influxdb']['logfile'] = '/var/log/influxdb/influxdb.log'
 default['influxdb']['pidfile'] = '/var/run/influxdb/influxdb.pid'

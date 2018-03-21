@@ -31,3 +31,20 @@ execute "common_sysctl" do
   group 'root'
   action :nothing
 end
+
+if node['common']['swap_size'].to_i > 0
+  execute "common_swap_file" do
+    command "dd if=/dev/zero of=/swapfile count=#{node['common']['swap_size']} bs=1MiB"
+    user 'root'
+    group 'root'
+    not_if "swapon -s | grep swapfile"
+    notifies :run, "execute[common_swap]", :immediately
+  end
+
+  execute "common_swap" do
+    command "chmod 0600 /swapfile && mkswap /swapfile && swapon /swapfile"
+    user 'root'
+    group 'root'
+    action :nothing
+  end
+end

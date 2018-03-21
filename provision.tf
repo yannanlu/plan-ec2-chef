@@ -11,6 +11,7 @@ data "template_file" "my_jsonfile" {
   template = "${file("templates/${var.json_file}.tpl")}"
 
   vars {
+    swap_size = "${var.swap_size}"
     qbroker_repo_url = "${var.qbroker_repo_url}"
     cookbook = "${var.wrapper_cookbook}"
     recipe = "${var.recipe}"
@@ -44,7 +45,7 @@ resource "aws_instance" "example" {
       type = "ssh"
       user = "${var.default_user}"
       private_key = "${file("${var.pem_file}")}"
-      timeout = "150s"
+      timeout = "300s"
     }
   }
 

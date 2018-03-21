@@ -1,4 +1,7 @@
 {
+  "common": {
+    "swap_size": "${swap_size}"
+  },
   "qbroker": {
     "repo_url": "${qbroker_repo_url}"
   },

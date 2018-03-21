@@ -29,5 +29,5 @@ default['statsflow']['log_location'] = {
 default['statsflow']['extra_server'] = {
   'port' => '8082',
   'server_name' => 'localhost',
-  'docroot' => '/var/www/html'
+  'docroot' => default['nginx']['default_docroot'] 
 }

@@ -1,8 +1,3 @@
-key = node[cookbook_name]['es_template']
-node.override['elasticsearch']['index_template'][key] = cookbook_name
-
-include_recipe "elasticsearch"
-
 node.override['qbroker']['wrapper_cookbook'] = cookbook_name
 node.override['qbroker']['service_id'] = cookbook_name.sub(/flow$/, '').upcase
 if node[cookbook_name]['security_plugin'] != nil
@@ -55,3 +50,8 @@ node.override['nginx']['log_locations'] = locations
 node.override['nginx']['extra_server'] = node[cookbook_name]['extra_server']
 
 include_recipe "nginx"
+
+key = node[cookbook_name]['es_template']
+node.override['elasticsearch']['index_template'][key] = cookbook_name
+
+include_recipe "elasticsearch"

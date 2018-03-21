@@ -7,11 +7,6 @@ when "debian","ubuntu"
     distribution node[cookbook_name]['distribution']
     components node[cookbook_name]['components']
     action :add
-    notifies :update, "apt_update[mongodb]", :immediately
-  end
-
-  apt_update "mongodb" do
-    action :nothing
   end
 
   apt_package node[cookbook_name]['pkg_name'] do

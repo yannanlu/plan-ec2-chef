@@ -3,6 +3,7 @@
 # Attributes:: default
 #
 
+default['common']['swap_size'] = '0'
 default['common']['sysctl_props']  = [
   'net.ipv4.tcp_tw_reuse = 1',
   'net.ipv4.tcp_tw_recycle = 1',

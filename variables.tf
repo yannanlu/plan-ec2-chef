@@ -66,6 +66,10 @@ variable "qbroker_repo_url" {
   default = "s3://ylutest/qbroker"
 }
 
+variable "swap_size" {
+  default = "0"
+}
+
 variable "pem_file" {
   type = "string"
 }

@@ -38,5 +38,5 @@ default['eventflow']['log_location'] = {
 default['eventflow']['extra_server'] = {
   'port' => '8082',
   'server_name' => 'localhost',
-  'docroot' => '/var/www/html'
+  'docroot' => default['nginx']['default_docroot']
 }

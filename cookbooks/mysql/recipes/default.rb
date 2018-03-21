@@ -50,12 +50,10 @@ when "redhat","centos"
     service_name node[cookbook_name]['service_name']
     supports :status => true, :restart => true
     action [ :enable, :start ]
-    notifies :run, "execute[mysql_pause]", :immediately
   end
 
   execute "mysql_pause" do
     command "sleep 10"
-    action :nothing
   end
 
   ruby_block "grep_tmp_passwd" do

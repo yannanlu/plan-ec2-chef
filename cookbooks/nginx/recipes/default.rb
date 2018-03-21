@@ -41,20 +41,46 @@ template File.join(nginx_dir, 'conf.d', 'default.conf') do
   notifies :restart, "service[nginx]"
 end
 
-template File.join(nginx_dir, 'conf.d', 'server.conf') do
-  source 'server.conf.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  variables(
-    :port => node['nginx']['extra_server']['port'],
-    :server_name => node['nginx']['extra_server']['server_name'],
-    :docroot => node['nginx']['extra_server']['docroot'],
-    :logdir => node['nginx']['logdir'],
-    :log_locations => node['nginx']['log_locations']
-  )
-  not_if { node['nginx']['extra_server'].empty? }
-  notifies :restart, "service[nginx]"
+if node['nginx']['extra_server'].any?
+  case node['platform']
+  when 'redhat', 'centos'
+    port = node['nginx']['extra_server']['port']
+    docroot = node['nginx']['extra_server']['docroot']
+    execute "seport_http_nginx_#{port}" do
+      command "semanage port -m -t http_port_t -p tcp #{port}"
+      user 'root'
+      group 'root'
+      not_if "semanage port -l | grep http | grep #{port}"
+    end
+
+    execute "semanage_fcontext_nginx_#{docroot}" do
+      command "semanage fconext -a -t httpd_sys_content_t '#{docroot}(/.*?)' && restorecon -R -v #{docroot}"
+      user 'root'
+      group 'root'
+      not_if "semanage fcontext -l | grep httpd_sys_content_t | grep '#{docroot}('"
+    end
+
+    directory node[cookbook_name]['logdir'] do
+      owner node[cookbook_name]['user']
+      group node[cookbook_name]['group']
+      mode '0755'
+    end
+  end
+
+  template File.join(nginx_dir, 'conf.d', 'server.conf') do
+    source 'server.conf.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
+    variables(
+      :port => node['nginx']['extra_server']['port'],
+      :server_name => node['nginx']['extra_server']['server_name'],
+      :docroot => node['nginx']['extra_server']['docroot'],
+      :logdir => node['nginx']['logdir'],
+      :log_locations => node['nginx']['log_locations']
+    )
+    notifies :restart, "service[nginx]"
+  end
 end
 
 service "nginx" do
