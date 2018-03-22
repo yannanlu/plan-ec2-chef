@@ -25,7 +25,11 @@
             </policyMap>
         </destinationPolicy>
         <managementContext>
+<% if node['activemq']['jmx'] == 'enabled' %>
+            <managementContext createConnector="true"/>
+<% else %>
             <managementContext createConnector="false"/>
+<% end %>
         </managementContext>
         <persistenceAdapter>
             <kahaDB directory="${activemq.data}/kahadb"/>

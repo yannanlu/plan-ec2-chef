@@ -24,7 +24,7 @@ directory qbroker_dir do
 end
 
 execute "qb_get" do
-  command "aws s3 cp #{url} #{tmp}"
+  command "aws s3 --region #{node[cookbook_name]['aws_region']} cp #{url} #{tmp}"
   not_if { File.exists?(File.join(tmp, artifact)) }
   notifies :run, "execute[qb_tarball]", :immediately
 end
@@ -57,7 +57,7 @@ if node[cookbook_name]['security_plugin'] != nil
   plugin = node[cookbook_name]['security_plugin']
   url = "#{node[cookbook_name]['repo_url']}/#{plugin}"
   execute "qb_security_plugin_get" do
-    command "aws s3 cp #{url} #{tmp}"
+    command "aws s3 --region #{node[cookbook_name]['aws_region']} cp #{url} #{tmp}"
     not_if { File.exists?(File.join(tmp, plugin)) }
   end
 

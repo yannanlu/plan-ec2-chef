@@ -9,6 +9,7 @@ default['qbroker']['service_id'] = 'TEST'
 default['qbroker']['webapp_context'] = nil
 default['qbroker']['wrapper_cookbook'] = nil
 default['qbroker']['security_plugin'] = nil
+default['qbroker']['aws_region'] = 'us-east-2'
 
 default['qbroker']['jar_files'] = []
 default['qbroker']['json_files'] = []
