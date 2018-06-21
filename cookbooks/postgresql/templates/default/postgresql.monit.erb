@@ -1,9 +1,0 @@
-<% if @pattern == nil %>
-check process postgresql with pidfile <%= @pidfile %>
-<% else %>
-check process postgresql matching "<%= @pattern %>"
-<% end %>
-    if does not exist 5 cycles then restart
-    if cpu usage > 55% for 5 cycles then alert
-    if memory usage > 55% for 5 cycles then alert
-    if 3 restarts within 5 cycles then timeout
