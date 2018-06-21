@@ -1,0 +1,57 @@
+[submodule "cookbooks/tomcat"]
+	path = cookbooks/tomcat
+	url = https://github.com/yannanlu/cookbook-tomcat.git
+[submodule "cookbooks/statsflow"]
+	path = cookbooks/statsflow
+	url = https://github.com/yannanlu/cookbook-statsflow.git
+[submodule "cookbooks/redis"]
+	path = cookbooks/redis
+	url = https://github.com/yannanlu/cookbook-redis.git
+[submodule "cookbooks/qbroker"]
+	path = cookbooks/qbroker
+	url = https://github.com/yannanlu/cookbook-qbroker.git
+[submodule "cookbooks/postgresql"]
+	path = cookbooks/postgresql
+	url = https://github.com/yannanlu/cookbook-postgresql.git
+[submodule "cookbooks/nginx"]
+	path = cookbooks/nginx
+	url = https://github.com/yannanlu/cookbook-nginx.git
+[submodule "cookbooks/mysql"]
+	path = cookbooks/mysql
+	url = https://github.com/yannanlu/cookbook-mysql.git
+[submodule "cookbooks/monit"]
+	path = cookbooks/monit
+	url = https://github.com/yannanlu/cookbook-monit.git
+[submodule "cookbooks/mongodb"]
+	path = cookbooks/mongodb
+	url = https://github.com/yannanlu/cookbook-mongodb.git
+[submodule "cookbooks/mbservice"]
+	path = cookbooks/mbservice
+	url = https://github.com/yannanlu/cookbook-mbservice.git
+[submodule "cookbooks/java"]
+	path = cookbooks/java
+	url = https://github.com/yannanlu/cookbook-java.git
+[submodule "cookbooks/influxdb"]
+	path = cookbooks/influxdb
+	url = https://github.com/yannanlu/cookbook-influxdb.git
+[submodule "cookbooks/idservice"]
+	path = cookbooks/idservice
+	url = https://github.com/yannanlu/cookbook-idservice.git
+[submodule "cookbooks/eventflow"]
+	path = cookbooks/eventflow
+	url = https://github.com/yannanlu/cookbook-eventflow.git
+[submodule "cookbooks/elasticsearch"]
+	path = cookbooks/elasticsearch
+	url = https://github.com/yannanlu/cookbook-elasticsearch.git
+[submodule "cookbooks/common"]
+	path = cookbooks/common
+	url = https://github.com/yannanlu/cookbook-common.git
+[submodule "cookbooks/cassandra"]
+	path = cookbooks/cassandra
+	url = https://github.com/yannanlu/cookbook-cassandra.git
+[submodule "cookbooks/apache"]
+	path = cookbooks/apache
+	url = https://github.com/yannanlu/cookbook-apache.git
+[submodule "cookbooks/activemq"]
+	path = cookbooks/activemq
+	url = https://github.com/yannanlu/cookbook-activemq.git
