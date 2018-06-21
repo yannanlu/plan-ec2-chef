@@ -1,7 +1,7 @@
 locations = []
 locations.push(node['mbservice']['location'])
 locations.push(node['activemq']['location'])
-node.override['apache2']['locations'] = locations
+node.override['apache']['locations'] = locations
 
 include_recipe "#{cookbook_name}"
-include_recipe "apache2"
+include_recipe "apache"

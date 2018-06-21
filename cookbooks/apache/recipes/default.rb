@@ -1,5 +1,5 @@
 pkg_name = node[cookbook_name]['pkg_name']
-apache2_dir = node['apache2']['dir']
+apache_dir = node['apache']['dir']
 
 case node['platform']
 when "debian","ubuntu"
@@ -7,25 +7,25 @@ when "debian","ubuntu"
     action :install
   end
 
-  cookbook_file File.join(apache2_dir, 'apache2.conf') do
+  cookbook_file File.join(apache_dir, 'apache2.conf') do
     source 'apache2.conf'
     owner 'root'
     group 'root'
     mode '0644'
-    notifies :restart, "service[apache2]"
+    notifies :restart, "service[apache]"
   end
 
-  template File.join(apache2_dir, 'sites-available', '000-default.conf') do
+  template File.join(apache_dir, 'sites-available', '000-default.conf') do
     source 'default.conf.erb'
     owner 'root'
     group 'root'
     mode '0644'
     variables(
-      :locations => node['apache2']['locations'],
-      :conf_dir => apache2_dir,
-      :mods_dir => node['apache2']['modsdir']
+      :locations => node['apache']['locations'],
+      :conf_dir => apache_dir,
+      :mods_dir => node['apache']['modsdir']
     )
-    notifies :restart, "service[apache2]"
+    notifies :restart, "service[apache]"
   end
 when "redhat","centos"
   yum_package pkg_name do
@@ -36,35 +36,35 @@ when "redhat","centos"
     action :install
   end
 
-  cookbook_file File.join(apache2_dir, 'conf', 'httpd.conf') do
+  cookbook_file File.join(apache_dir, 'conf', 'httpd.conf') do
     source 'httpd.conf'
     owner 'root'
     group 'root'
     mode '0644'
-    notifies :restart, "service[apache2]"
+    notifies :restart, "service[apache]"
   end
 
-  template File.join(apache2_dir, 'conf.d', 'ssl.conf') do
+  template File.join(apache_dir, 'conf.d', 'ssl.conf') do
     source 'default.conf.erb'
     owner 'root'
     group 'root'
     mode '0644'
     variables(
-      :locations => node['apache2']['locations'],
-      :conf_dir => apache2_dir,
-      :mods_dir => node['apache2']['modsdir']
+      :locations => node['apache']['locations'],
+      :conf_dir => apache_dir,
+      :mods_dir => node['apache']['modsdir']
     )
-    notifies :restart, "service[apache2]"
+    notifies :restart, "service[apache]"
   end
 end
 
 %w{server.crt server.key}.each do |f|
-  cookbook_file File.join(apache2_dir, f) do
+  cookbook_file File.join(apache_dir, f) do
     source f
     owner 'root'
     group 'root'
     mode '0600'
-    notifies :restart, "service[apache2]"
+    notifies :restart, "service[apache]"
   end
 end
 
