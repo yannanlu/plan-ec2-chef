@@ -1,6 +1,6 @@
 # plan-ec2-chef
 
-This is a Terraform plan to provision an EC2 instance with Chef-solo and the cookbooks loaded. Then it runs Chef-solo with the cookbooks on the EC2 instance. All the cookbooks are idempotent which means it is safe to run them multiple times. Currenly, it supports Ubuntu and CentOS only. The web applications of idservice and mbservice have been fully tested with Nginx and Apache. Within the web applications, cookbooks for Nginx, Apache2, Tomcat7, ActiveMQ, MySQL and Postgresql are used.
+This is a Terraform plan to provision an EC2 instance with Chef-solo and the cookbooks loaded. Then it runs Chef-solo with the cookbooks on the EC2 instance. All the cookbooks are idempotent which means it is safe to run them multiple times. Currenly, it supports Ubuntu and CentOS only. The web applications of idservice and mbservice have been fully tested with Nginx and Apache. Within the web applications, cookbooks for Nginx, Apache, Tomcat, ActiveMQ, MySQL and Postgresql are used.
 
 This Terraform plan treats the EC2 instance immutable on most of the EC2 properties, such as Region, AMI, Type, VPC, Subnet, Volume, etc. It means if any of them needs to be changed, a new instance will be created with the old instance destroyed. But for other server configurations, such as packages, applications, etc, they will be treated as mutable.
 
@@ -32,7 +32,7 @@ To show the state of the launched instances:
 terraform show
 ```
 
-To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS on a non-default profile and with the default web application plus the database of MySQL and the web frontend of Apache2:
+To apply the plan to provision an EC2 instance of Ubuntu 16.04 LTS on a non-default profile and with the default web application plus the database of MySQL and the web frontend of Apache:
 ```
 terraform apply -var pem_file=~/.ssh/ylu.pem -var profile=test -var recipe=mysql
 ```
